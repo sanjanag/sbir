@@ -1,2 +1,2 @@
-# sbir
-sketch-based image retrieval
+# Sketch-based Image Retrieval
+

@@ -59,13 +59,26 @@ Describe very clearly and systematically your approach to solve the problem. Tel
 <br><br>
 <!-- Results -->
 <h3>Experiments and results</h3>
-Provide details about the experimental set up (number of images/videos, number of datasets you experimented with, train/test split if you used machine learning algorithms, etc.). Describe the evaluation metrics you used to evaluate how well your approach is working. Include clear figures and tables, as well as illustrative qualitative examples if appropriate. Be sure to include obvious baselines to see if your approach is doing better than a naive approach (e.g. for classification accuracy, how well would a classifier do that made random decisions?). Also discuss any parameters of your algorithms, and tell us how you set the values of those parameters. You can also show us how the performance varies as you change those parameter values. Be sure to discuss any trends you see in your results, and explain why these trends make sense. Are the results as expected? Why?
+<h4>Datasets</h4>
+<b>The Sketchy Database</b> <a href="http://sketchy.eye.gatech.edu/explore/banana.html">http://sketchy.eye.gatech.edu/explore/banana.html</a>
+<br><b>Shoe</b>  <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html</a>
+<br>
+<br>We first start with the two category dataset Shoe for our problem, to test our features and then experiment with the Sketchy database which has more number of categories. 
+
+<br>For our implementation, we will be using existing libraries in Python like OpenCV for edge detection, feature extraction and scipy for similarity metrics computation. We will build a pipeline for the pre-processing and retrieval phases mentioned above. The success of our project would be if the user is able to retrieve similar images given a sketch image. We will be using the following evaluation metrics for measuring the performance of our system:
+<br>   - Precision at K
+<br>   - Recall at K
+
+<br>The datasets we are using are designed for fine-grained sketch-based image retrieval that is used to embed images and sketches in the same feature space using convolutional networks. However, we intend to use traditional techniques in computer vision for constructing our feature representations which makes us uncertain about how these hand-crafted features would perform on the dataset.
 
 <br><br>
 
 <h4>References/Citations</h4>
 add proper references/citations to any existing code that you might use (e.g. links to GitHub repos etc.).
 <br>[1] Li, Y. & Li, W. Machine Vision and Applications (2018) 29: 1083. https://doi.org/10.1007/s00138-018-0953-8
+<br>[2] M. Eitz, K. Hildebrand, T. Boubekeur and M. Alexa, "Sketch-Based Image Retrieval: Benchmark and Bag-of-Features Descriptors," in IEEE Transactions on Visualization and Computer Graphics, vol. 17, no. 11, pp. 1624-1636, Nov. 2011.
+<br>[3] Xiao, Changcheng & Wang, Changhu & Zhang, Liqing & Zhang, Lei. (2015). Sketch-based Image Retrieval via Shape Words. 571-574. 10.1145/2671188.2749360. 
+<br>[4] C. Xiao, C. Wang, L. Zhang, and L. Zhang, “IdeaPanel,” in Proceedings of the 5th ACM on International Conference on Multimedia Retrieval-ICMR '15, pp. 667-668 (2015).
 
 <br><br>
 

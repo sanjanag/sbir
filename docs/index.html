@@ -42,15 +42,22 @@ color: #FF9900;
 
 <!-- Introduction -->
 <h3>Problem statement</h3>
-In this project, we aim to retrieve images from a database using a sketch. Our motivation for the problem arises from the limitation of traditional text-based image search methods. These methods can no longer suffice to help people find specifically the image they wanted as the database of images grows larger and larger and accurately detailed tagging of images becomes unrealistic. Also, with the increasing use of touch screen devices, this has relevant applications in e-commerce platforms. Sketches have a much greater potential to describe the content and exact details of the image than plain text and are a more direct way of expressing human thoughts than text abstraction. Using sketch to retrieve images also alleviates the need for generating accurate captions for existing images, which becomes a complex natural language processing problem as the description is required to be more specific and detailed. The user can sketch either the entire scene or just the object. For our project, we are focusing on using just object sketches for image retrieval.
-<br> We aim to build a system that takes a sketch image file as input and retrieves top k similar images from the database as output.
-<br> To achieve our goal, we will apply techniques that we have learned in class as well as knowledge gained from current literature in the field.
+In this project, we aim to retrieve images from a database using a sketch. Our motivation for the problem arises from the limitation of traditional text-based image search methods. These methods can no longer suffice to help people find specifically the image they wanted as the database of images grows larger and larger and accurately detailed tagging of images becomes unrealistic. Also, with the increasing use of touch screen devices, Sketch-Based Image Retrieval (SBIR) has relevant applications in e-commerce platforms. Sketches have a much greater potential to describe the content and exact details of the image than plain text and are a more direct way of expressing human thoughts than text abstraction. Using sketch to retrieve images also alleviates the need for generating accurate captions for existing images, which becomes a complex natural language processing problem as the description is required to be more specific and detailed. The user can sketch either the entire scene or just the object. For our project, we are focusing on using just object sketches for image retrieval.
+<br>
+<br> We aim to build a system that takes a sketch image file as input and retrieves top k similar images from the database as output. 
+To achieve our goal, we will apply techniques that we have learned in class as well as knowledge gained from current literature in the field.
 
 
 <br><br>
 <!-- Approach -->
 <h3>Approach</h3>
-Describe very clearly and systematically your approach to solve the problem. Tell us exactly what existing implementations you used to build your system. Tell us what obstacles you faced and how you addressed them. Justify any design choices or judgment calls you made in your approach.
+In our approach, we aim to tackle the following aspects of sketch-image differences: <br>
+<h4>Visual Cue Imbalance</h4>
+The sketches usually have a holistic shape and salient local shapes while the images are abundant in details on shape, texture, and color.
+<h4>Abstraction Gap</h4>
+The sketches are usually a simplified version (missing details) of images with random distortion (the randomness in strokes) and unrealistic disproportion (object parts being unrealistically smaller or bigger). 
+<br>
+The whole SBIR framework can be divided into two phases- pre-processing and retrieval. The framework is shown in the below figure.
 <!-- Approach Figure --> 
 <div style="text-align: center;">
 <img style="height: 250px;" alt="" src="proposal_approach_flow_diagram.png">

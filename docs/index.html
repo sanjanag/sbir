@@ -51,17 +51,37 @@ To achieve our goal, we will apply techniques that we have learned in class as w
 <br><br>
 <!-- Approach -->
 <h3>Approach</h3>
-In our approach, we aim to tackle the following aspects of sketch-image differences: <br>
+<!-- In our approach, we aim to tackle the following aspects of sketch-image differences: <br>
 <h4>Visual Cue Imbalance</h4>
 The sketches usually have a holistic shape and salient local shapes while the images are abundant in details on shape, texture, and color.
 <h4>Abstraction Gap</h4>
 The sketches are usually a simplified version (missing details) of images with random distortion (the randomness in strokes) and unrealistic disproportion (object parts being unrealistically smaller or bigger). 
 <br>
-The whole SBIR framework can be divided into two phases- pre-processing and retrieval. The framework is shown in the below figure.
+ -->The whole SBIR framework can be divided into two phases- pre-processing and retrieval. The framework is shown in the below figure.
 <!-- Approach Figure --> 
 <div style="text-align: center;">
 <img style="height: 250px;" alt="" src="proposal_approach_flow_diagram.png">
 </div>
+The whole SBIR framework can be divided into two phases- pre-processing and retrieval. The framework is shown in the above figure.
+<h4>Pre-Processing Phase</h4>
+In this phase, we pre-process the dataset to extract features. For every image in the dataset, we perform the following steps.
+<ul>
+<li><b>Edge extraction</b></li>
+Convert the image to its gray intensity representation.
+<br>Extract local edge features using the Canny edge detector. Edge extraction addresses the visual cue imbalance. Since the sketches are generally composed of strokes which are mostly edges, it is intuitive to compare edge maps of images with sketches. We use a high threshold to extract only the salient edges and thus address the simplification sub-aspect of the abstraction gap.
+<li><b>Feature extraction</b></li>
+In this step, we encode the edge feature maps to representations that are efficient for similarity comparison.<br>
+We extract histogram-based local features like SIFT, Histogram of Oriented Gradients (HOG) and global features like shape. The histogram features can tolerate random distortions in the sketches due to the grid division scheme in feature extraction.
+</ul>
+<h4>Retrieval Phase</h4>
+This is the phase in which the query image is processed to retrieve similar images.
+<ul>
+<li><b>Feature extraction</b></li>
+Similar to the feature extraction step of the pre-processing phase, we extract a histogram of features from the input sketch image. Since sketches are close to the edge map of images, we do not have the step of edge extraction in this phase.
+<li><b>Similarity comparison</b></li>
+To compare the histogram-based features of the input sketch and the dataset images, we plan to use one or more of the metrics to calculate the similarity between histograms like city block, cosine, Chi-square, Euclidean distance, and histogram intersection distances. <br>
+The top 'k' similar images from the above step are retrieved as output.
+</ul>
 
 <br><br>
 <!-- Results -->
@@ -81,8 +101,7 @@ The whole SBIR framework can be divided into two phases- pre-processing and retr
 <br><br>
 
 <h4>References/Citations</h4>
-add proper references/citations to any existing code that you might use (e.g. links to GitHub repos etc.).
-<br>[1] Li, Y. & Li, W. Machine Vision and Applications (2018) 29: 1083. https://doi.org/10.1007/s00138-018-0953-8
+[1] Li, Y. & Li, W. Machine Vision and Applications (2018) 29: 1083. https://doi.org/10.1007/s00138-018-0953-8
 <br>[2] M. Eitz, K. Hildebrand, T. Boubekeur and M. Alexa, "Sketch-Based Image Retrieval: Benchmark and Bag-of-Features Descriptors," in IEEE Transactions on Visualization and Computer Graphics, vol. 17, no. 11, pp. 1624-1636, Nov. 2011.
 <br>[3] Xiao, Changcheng & Wang, Changhu & Zhang, Liqing & Zhang, Lei. (2015). Sketch-based Image Retrieval via Shape Words. 571-574. 10.1145/2671188.2749360. 
 <br>[4] C. Xiao, C. Wang, L. Zhang, and L. Zhang, “IdeaPanel,” in Proceedings of the 5th ACM on International Conference on Multimedia Retrieval-ICMR '15, pp. 667-668 (2015).

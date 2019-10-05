@@ -62,8 +62,8 @@ The sketches are usually a simplified version (missing details) of images with r
 <!-- Approach Figure --> 
 In our approach, we aim to tackle the following aspects of sketch-image differences:
 <ul>
-<li><b>Visual Cue Imbalance</b> The sketches have a holistic shape and salient local shapes while the images are abundant in details on shape, texture, and color.</li> 
-<li><b>Abstraction Gap</b> The sketches are a usually simplified version (missing details) of images with random distortion (the randomness in strokes) and unrealistic disproportion (object parts being unrealistically smaller or bigger).</li> 
+<li><b>Visual Cue Imbalance:</b> The sketches have a holistic shape and salient local shapes while the images are abundant in details on shape, texture, and color.</li> 
+<li><b>Abstraction Gap:</b> The sketches are usually simplified version (missing details) of images with random distortion (the randomness in strokes) and unrealistic disproportion (object parts being unrealistically smaller or bigger).</li> 
 </ul>
 
 <div style="text-align: center;">
@@ -101,7 +101,7 @@ The top 'k' similar images from the above step are retrieved as output.
 <li><b>The Sketchy Database</b> <br>This is the first large-scale collection of sketch-photo pairs. The dataset has 125 categories of objects with 100 images per category and 75,471 sketches of 12,500 objects. Images and sketches vary in shape, scale and orientation.<br><a href="http://sketchy.eye.gatech.edu/explore/banana.html">http://sketchy.eye.gatech.edu/explore/banana.html</a></li>
 <li><b>Shoe</b><br>This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of the scale and orientation.<br> <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html</a></li>
 </ul>
-We first start with the two category dataset <b>Shoe</b> for our problem, to test our features and then experiment with the Sketchy database which has more number of categories.
+We first start with the two category dataset <b>Shoe</b> for our problem, to test our features and then experiment with <b>The Sketchy</b> database which has more number of categories.
 </li>
  
 
@@ -114,27 +114,27 @@ The ability of our system to retrieve similar images to a user provided sketch i
 <li><b>Evaluation metrics</b><br>
 We will be evaluating the performance of our system using the below metrics.
 <ul>
-<li><b>Precision at k</b> For a given query sketch image, precision at k images (P@k) is (e.g., P@10 or "Precision at 10") corresponds to the number of relevant images among the top 10 images retrieved.</li>
+<li><b>Precision at k:</b> For a given query sketch image, precision at k images (P@k) is (e.g., P@10 or "Precision at 10") corresponds to the number of relevant images among the top k images retrieved.</li>
 <li>
-<b>Average Precision at k per category</b> We evaluate the peformance of our system for each category of images in the dataset using this metric. This is calculated as follows for a category.
+<b>Average Precision at k per category:</b> We evaluate the peformance of our system for each category of images in the dataset using this metric. This is calculated as follows for a category.
 Consider each sketch image in the category as query and calculate P@k for that query image. Calculate mean of the P@k scores for each query.</li>
-<li><b>Average Precision at k per dataset</b> To calculate this metric, we consider every sketch image in the dataset as query image, calculate P@k for that query image and calculate mean of the P@k scores for each query.</li>
+<li><b>Average Precision at k per dataset:</b> To calculate this metric, we consider every sketch image in the dataset as query image, calculate P@k for that query image and calculate mean of the P@k scores for each query.</li>
 </ul>
 </li>
 </ol>
 <h4>Experiments</h4>
-Using the above setup - datasets and evaluation metrics following are some of the experiments we plan to perform.
+Using the above setup (datasets and evaluation metrics) following are some of the experiments we plan to perform.
 <ul>
 <li>Experiment with different image features for different categories of objects and evaluate which features perform better for a category.</li>
 <li>Experiment with different datasets - Shoe and The Sketchy and evaluate how the system performs for different scales and orientations of sketches.</li>
 </ul>
 <h5>Uncertainty about potential outcomes</h5>
-The datasets we are using are benchmarked for fine-grained sketch-based image retrieval that is used to embed images and sketches of different scales and orientations in the same feature space using convolutional networks. However, we intend to use traditional techniques in computer vision for constructing our feature representations which makes us uncertain about how these hand-crafted features would perform on these datasets.
+The datasets we will be using are benchmarked for fine-grained sketch-based image retrieval that is used to embed images and sketches of different scales and orientations in the same feature space using convolutional networks. However, we intend to use traditional techniques in computer vision for constructing our feature representations which makes us uncertain about how these hand-crafted features would perform on these datasets.
 
 
 <br><br>
 
-<h4>References/Citations</h4>
+<h3>References/Citations</h3>
 [1] Li, Y. & Li, W. Machine Vision and Applications (2018) 29: 1083. https://doi.org/10.1007/s00138-018-0953-8
 <br>[2] M. Eitz, K. Hildebrand, T. Boubekeur and M. Alexa, "Sketch-Based Image Retrieval: Benchmark and Bag-of-Features Descriptors," in IEEE Transactions on Visualization and Computer Graphics, vol. 17, no. 11, pp. 1624-1636, Nov. 2011.
 <br>[3] Xiao, Changcheng & Wang, Changhu & Zhang, Liqing & Zhang, Lei. (2015). Sketch-based Image Retrieval via Shape Words. 571-574. 10.1145/2671188.2749360. 

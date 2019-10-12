@@ -20,10 +20,12 @@ if __name__ == '__main__':
     images = [tup[1] for tup in image_bank]
     processed_imgs = preprocess(images)
     feature_list = []
+
+    # TODO: FIX HOG FEATURE
     for img in processed_imgs:
         feature_list.append(extract_features(processed_imgs))
     feature_bank = []
     for i in range(len(image_bank)):
         feature_bank.append((image_bank[i][0], feature_list[i]))
-    with open('feature_bank', 'wb') as filehandle:
+    with open('feature_bank.pkl', 'wb') as filehandle:
         pkl.dump(feature_bank, filehandle)

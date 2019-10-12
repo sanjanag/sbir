@@ -1,5 +1,6 @@
 import cv2
 from scipy.spatial import distance
+import numpy as np
 
 from .extract_features import extract_features
 
@@ -18,7 +19,7 @@ def get_topk_images(k, distances, image_bank):
 
 
 def retrieve_images(queries, image_bank_file, k, display=None):
-    image_bank = None
+    image_bank = np.load(image_bank_file)
     image_features = [tup[1] for tup in image_bank]
     results = []
     for query in queries:

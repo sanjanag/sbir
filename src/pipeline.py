@@ -5,4 +5,8 @@ def read_config(filepath):
         cfg = yaml.load(ymlfile, Loader=yaml.FullLoader)
     return cfg
 
-print(read_config('config.yml'))
+
+# load images
+# preprocess
+# extract features
+# store features

@@ -33,3 +33,6 @@ def retrieve_images(queries, feature_bank_path, k, display=None):
         sim_imgs = get_topk_images(k, distances, feature_bank)
         results.append(sim_imgs)
     return results
+
+if __name__ == '__main__':
+    pass

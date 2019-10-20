@@ -1,5 +1,5 @@
-import glob
 import os
+
 import cv2
 
 
@@ -11,5 +11,5 @@ def load_images(image_dir):
 
     image_tuples = []
     for path in filepaths:
-        image_tuples.append((path, cv2.imread(path, 0)))
+        image_tuples.append((path, cv2.imread(path)))
     return image_tuples

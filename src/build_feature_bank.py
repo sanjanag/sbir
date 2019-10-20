@@ -15,17 +15,23 @@ def read_config():
 
 if __name__ == '__main__':
     cfg = read_config()
-    image_bank = load_images(cfg['image_dir'])
-    print(len(image_bank))
-    images = [tup[1] for tup in image_bank]
-    processed_imgs = preprocess(images)
-    feature_list = []
 
-    # TODO: FIX HOG FEATURE
+    print("Loading images")
+    image_bank = load_images(cfg['image_dir'])
+    images = [tup[1] for tup in image_bank]
+    print("Num of images loaded: " + str(len(images)))
+
+    print("Preprocessing images")
+    processed_imgs = preprocess(images)
+
+    print("Building feature bank")
+    feature_list = []
     for img in processed_imgs:
-        feature_list.append(extract_features(processed_imgs))
+        feature_list.append(extract_features(img))
     feature_bank = []
     for i in range(len(image_bank)):
         feature_bank.append((image_bank[i][0], feature_list[i]))
-    with open('feature_bank.pkl', 'wb') as filehandle:
+
+    with open(cfg['feature_bank'], 'wb') as filehandle:
         pkl.dump(feature_bank, filehandle)
+    print("Dumped feature bank in " + cfg['feature_bank'])

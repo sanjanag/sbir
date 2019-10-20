@@ -2,7 +2,7 @@ import pickle
 
 import numpy as np
 
-from config import read_config
+from util import read_config
 from extract_features import extract_features
 from load import load_images
 from preprocess import preprocess_images
@@ -23,5 +23,5 @@ print("Building feature bank")
 feature_list = []
 for img in processed_imgs:
     feature_list.append(extract_features(img))
-np.save(cfg['feature_bank'], np.array(feature_list))
+pickle.dump(feature_list, open(cfg['feature_bank'], 'wb'))
 print("Dumped feature bank in " + cfg['feature_bank'])

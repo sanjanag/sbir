@@ -1,5 +1,5 @@
 image_dir: /Users/sanjana/gatech/cv/project/test/images
 sketch_dir: /Users/sanjana/gatech/cv/project/test/sketches
-feature_bank:  /Users/sanjana/gatech/cv/project/test/feature_bank.npy
+feature_bank:  /Users/sanjana/gatech/cv/project/test/feature_bank.pkl
 categories: /Users/sanjana/gatech/cv/project/test/categories.pkl
 filenames: /Users/sanjana/gatech/cv/project/test/filenames.pkl

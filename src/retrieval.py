@@ -1,9 +1,9 @@
 import pickle as pkl
 
-import cv2
 from scipy.spatial import distance
 
-from .extract_features import extract_features
+from extract_features import extract_features
+from preprocess import preprocess_sketches
 
 
 def compute_distances(image_features, sketch_feature, distance_measure):
@@ -12,27 +12,34 @@ def compute_distances(image_features, sketch_feature, distance_measure):
     return distances
 
 
-def get_topk_images(k, distances, image_bank):
-    distances_bank = []
-    for i in range(len(image_bank)):
-        distances_bank.append((image_bank[i][0], distances[i]))
-    ordered_list = sorted(distances_bank, key=lambda x: x[1])
-    return [tup[0] for tup in ordered_list[:k]]
+def get_top_results(k, distances):
+    distance_idx_list = []
+    for i, distance in enumerate(distances):
+        distance_idx_list.append((distance, i))
+    distance_idx_list.sort()
+    return distance_idx_list[:k]
 
 
-def retrieve_images(queries, feature_bank_path, k, display=None):
+def get_image_features(feature_bank_path):
     with open(feature_bank_path, 'rb') as f:
         feature_bank = pkl.load(f)
     image_features = [tup[1] for tup in feature_bank]
+    return image_features
+
+
+def retrieve(queries, image_features, k, distance_metric, display=False):
+    queries = preprocess_sketches(queries)
+
     results = []
+
     for query in queries:
-        sketch = cv2.imread(query, 0)
-        sketch_features = extract_features(sketch)
+        sketch_features = extract_features(query)
         distances = compute_distances(image_features, sketch_features,
-                                      'cityblock')
-        sim_imgs = get_topk_images(k, distances, feature_bank)
-        results.append(sim_imgs)
+                                      distance_metric)
+        top_results = get_top_results(k, distances)
+        results.append(top_results)
     return results
 
-if __name__ == '__main__':
-    pass
+# if __name__ == '__main__':
+#     cfg = read_config()
+#     categories, sketches = load_images(cfg['sketch_dir'])

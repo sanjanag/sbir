@@ -1,37 +1,27 @@
-import pickle as pkl
+import pickle
 
-import yaml
+import numpy as np
 
+from config import read_config
 from extract_features import extract_features
 from load import load_images
-from preprocess import preprocess
+from preprocess import preprocess_images
 
 
-def read_config():
-    with open("../config.yml", 'r') as ymlfile:
-        cfg = yaml.load(ymlfile, Loader=yaml.FullLoader)
-    return cfg
+cfg = read_config()
 
+print("Loading images")
+filenames, categories, images = load_images(cfg['image_dir'])
+pickle.dump(filenames, open(cfg['filenames'], 'wb'))
+pickle.dump(categories, open(cfg['categories'], 'wb'))
+print("Num of images loaded: " + str(len(images)))
 
-if __name__ == '__main__':
-    cfg = read_config()
+print("Preprocessing images")
+processed_imgs = preprocess_images(images)
 
-    print("Loading images")
-    image_bank = load_images(cfg['image_dir'])
-    images = [tup[1] for tup in image_bank]
-    print("Num of images loaded: " + str(len(images)))
-
-    print("Preprocessing images")
-    processed_imgs = preprocess(images)
-
-    print("Building feature bank")
-    feature_list = []
-    for img in processed_imgs:
-        feature_list.append(extract_features(img))
-    feature_bank = []
-    for i in range(len(image_bank)):
-        feature_bank.append((image_bank[i][0], feature_list[i]))
-
-    with open(cfg['feature_bank'], 'wb') as filehandle:
-        pkl.dump(feature_bank, filehandle)
-    print("Dumped feature bank in " + cfg['feature_bank'])
+print("Building feature bank")
+feature_list = []
+for img in processed_imgs:
+    feature_list.append(extract_features(img))
+np.save(cfg['feature_bank'], np.array(feature_list))
+print("Dumped feature bank in " + cfg['feature_bank'])

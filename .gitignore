@@ -3,3 +3,4 @@ readings/
 data/
 *.idea/
 *.ipynb
+*__pycache__/

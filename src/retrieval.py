@@ -1,5 +1,6 @@
 import pickle as pkl
 
+import numpy as np
 from scipy.spatial import distance
 
 from extract_features import extract_features
@@ -7,7 +8,8 @@ from preprocess import preprocess_sketches
 
 
 def compute_distances(image_features, sketch_feature, distance_measure):
-    distances = distance.cdist(image_features, sketch_feature,
+    distances = distance.cdist(np.array(image_features),
+                               sketch_feature.reshape((1, -1)),
                                distance_measure)
     return distances
 

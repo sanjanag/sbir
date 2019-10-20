@@ -1,12 +1,9 @@
 import pickle
 
-import numpy as np
-
-from util import read_config
 from extract_features import extract_features
 from load import load_images
 from preprocess import preprocess_images
-
+from util import read_config
 
 cfg = read_config()
 

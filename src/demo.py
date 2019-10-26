@@ -1,21 +1,21 @@
 import pickle
 
-from load import load_images
+from load import load_images_from_files
 from retrieval import retrieve
-from util import calc_precision
-from util import get_categories_from_indices
-from util import read_config
-from util import read_image, display_image, bgr_to_rgb
-import cv2
+from util import read_config, get_result_filenames, display_results
 
 cfg = read_config()
-filenames, image_categories, images = load_images(cfg['image_dir'])
-query_image = read_image(cfg['querypath'])
-display_image("query sketch", query_image)
+
+# read sketch
+_, _, query_images = load_images_from_files([cfg['querypath']])
+query_image = query_images[0]
+
+# get results
 feature_bank = pickle.load(open(cfg['feature_bank'], "rb"))
 k = 10
 results = retrieve([query_image], feature_bank, k, 'cityblock')[0]
+res_files = get_result_filenames(results, cfg)
+_, _, res_images = load_images_from_files(res_files)
 
-for res in results:
-    images[res[1]]
-    display_image(str(res[1]), images[res[1]])
+# display
+display_results(res_images)

@@ -13,10 +13,14 @@ def get_filenames(dir_path):
     return filenames
 
 
-def load_images(image_dir):
+def load_images_from_dir(image_dir):
     filenames = get_filenames(image_dir)
+    return load_images_from_files(filenames)
+
+
+def load_images_from_files(filenames):
     images = []
     for path in filenames:
-        images.append(cv2.imread(path,cv2.IMREAD_UNCHANGED))
+        images.append(cv2.imread(path, cv2.IMREAD_UNCHANGED))
     assert len(filenames) == len(images)
     return filenames, get_categories(filenames), images

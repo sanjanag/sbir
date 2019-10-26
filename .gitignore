@@ -4,3 +4,10 @@ data/
 *.idea/
 *.ipynb
 *__pycache__/
+src/test_feature_extraction_sift.py
+src/test_feature_extraction.py
+test/categories.pkl
+test/feature_bank.pkl
+test/filenames.pkl
+test/imagesfeature_bank_sift.pkl
+config.yml

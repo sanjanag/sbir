@@ -6,18 +6,19 @@ from util import calc_precision, calc_recall
 from util import get_categories_from_indices
 from util import read_config
 import matplotlib.pyplot as plt
+from inspect import signature
+import numpy as np
 
 cfg = read_config()
 filenames, sketch_categories, sketches = load_images(cfg['sketch_dir'])
 feature_bank = pickle.load(open(cfg['feature_bank'], "rb"))
 
-klist = [5, 10, 20, 30, 90, 100, 110, 175, 185, 195, 200]
-# klist = [10]
+klist = [5, 10, 20, 30, 90, 100, 110, 170, 180, 190, 195]
 avg_precision_values = []
 avg_recall_values = []
 total_category_images = 200
 
-avg_precision_values_per_category = dict() 
+avg_precision_values_per_category = dict()
 avg_recall_values_per_category = dict()
 
 for category in sketch_categories:
@@ -65,14 +66,20 @@ for k in klist:
         print("Average precision per category-", category, " : ", avg_ppc)
         print("Average recall per category-", category, " : ", avg_rpc)
 
-plt.plot(avg_precision_values, avg_recall_values)
+step_kwargs = ({'step': 'post'}
+               if 'step' in signature(plt.fill_between).parameters
+               else {})
+
+plt.step(avg_recall_values, avg_precision_values)
+plt.fill_between(np.array(avg_recall_values), np.array(avg_precision_values), alpha=0.2, **step_kwargs)
 plt.title("Precision Recall curve")
 plt.show()
 
 for category in avg_precision_values_per_category:
     precision_values = avg_precision_values_per_category[category]
     recall_values = avg_recall_values_per_category[category]
-    plt.plot(precision_values, recall_values)
+    plt.step(recall_values, precision_values)
+    plt.fill_between(recall_values, precision_values, alpha=0.2, **step_kwargs)
     title = "Precision Recall curve for category- " + category
     plt.title(title)
     plt.show()

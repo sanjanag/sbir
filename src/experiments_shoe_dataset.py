@@ -1,6 +1,6 @@
 import pickle
 
-from load import load_images
+from load import load_images_from_dir
 from retrieval import retrieve
 from util import calc_precision, calc_recall
 from util import get_categories_from_indices
@@ -10,7 +10,7 @@ from inspect import signature
 import numpy as np
 
 cfg = read_config()
-filenames, sketch_categories, sketches = load_images(cfg['sketch_dir'])
+filenames, sketch_categories, sketches = load_images_from_dir(cfg['sketch_dir'])
 feature_bank = pickle.load(open(cfg['feature_bank'], "rb"))
 
 klist = [5, 10, 20, 30, 90, 100, 110, 170, 180, 190, 195]

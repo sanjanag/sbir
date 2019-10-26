@@ -54,8 +54,8 @@ for k in klist:
     avg_recall = sum(rpq)/total_queries
     avg_precision_values.append(avg_precision)
     avg_recall_values.append(avg_recall)
-    print("Average precision: ", avg_precision)
-    print("Average recall: ", avg_recall)
+    # print("Average precision: ", avg_precision)
+    # print("Average recall: ", avg_recall)
 
     for category in ppc:
         total_queries_per_category = len(ppc[category])
@@ -63,13 +63,15 @@ for k in klist:
         avg_rpc = sum(rpc[category])/total_queries_per_category
         avg_precision_values_per_category[category].append(avg_ppc)
         avg_recall_values_per_category[category].append(avg_rpc)
-        print("Average precision per category-", category, " : ", avg_ppc)
-        print("Average recall per category-", category, " : ", avg_rpc)
+        # print("Average precision per category-", category, " : ", avg_ppc)
+        # print("Average recall per category-", category, " : ", avg_rpc)
 
 step_kwargs = ({'step': 'post'}
                if 'step' in signature(plt.fill_between).parameters
                else {})
 
+print("avg recall values", avg_recall_values)
+print("avg precision values", avg_precision_values)
 plt.step(avg_recall_values, avg_precision_values)
 plt.fill_between(np.array(avg_recall_values), np.array(avg_precision_values), alpha=0.2, **step_kwargs)
 plt.title("Precision Recall curve")
@@ -78,6 +80,8 @@ plt.show()
 for category in avg_precision_values_per_category:
     precision_values = avg_precision_values_per_category[category]
     recall_values = avg_recall_values_per_category[category]
+    print(category, "avg precision values", precision_values)
+    print(category, "avg recall values", recall_values)
     plt.step(recall_values, precision_values)
     plt.fill_between(recall_values, precision_values, alpha=0.2, **step_kwargs)
     title = "Precision Recall curve for category- " + category

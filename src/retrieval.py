@@ -5,6 +5,7 @@ from scipy.spatial import distance
 
 from extract_features import extract_features
 from preprocess import preprocess_sketches
+from calculate_distances_sift import calculate_distances_sift
 
 
 def compute_distances(image_features, sketch_feature, distance_measure):
@@ -36,8 +37,11 @@ def retrieve(queries, image_features, k, distance_metric, display=False):
 
     for query in queries:
         sketch_features = extract_features(query)
-        distances = compute_distances(image_features, sketch_features,
+        if distance_metric is not None:
+            distances = compute_distances(image_features, sketch_features,
                                       distance_metric)
+        else:
+            distances = calculate_distances_sift(sketch_features, image_features)
         top_results = get_top_results(k, distances)
         results.append(top_results)
     return results

@@ -10,14 +10,15 @@ cfg = read_config()
 filenames, sketch_categories, sketches = load_images(cfg['sketch_dir'])
 feature_bank = pickle.load(open(cfg['feature_bank'], "rb"))
 k = 10
-results = retrieve(sketches[:1], feature_bank, k, 'cityblock')
+print(len(sketches))
+results = retrieve(sketches, feature_bank, k, 'cityblock')
 
 ppq = []  # precision per query
 for i, result in enumerate(results):
     distances = [tup[0] for tup in result]
     indices = [tup[1] for tup in result]
     img_categories = get_categories_from_indices(indices, cfg['categories'])
-    ppq.append(calc_precision(sketches[i], img_categories))
+    ppq.append(calc_precision(sketch_categories[i], img_categories))
 
 # # calculate precision per category
 # # shoes: 1 to 200

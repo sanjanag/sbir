@@ -7,7 +7,13 @@ from util import get_categories_from_indices
 from util import read_config
 import matplotlib.pyplot as plt
 from inspect import signature
-import numpy as np
+
+#########################################
+# switching between sift and hog
+#1. change extract_features method to call corresponding method
+#2. for SIFT, pass None as distance_metric parameter to retrieve method.
+#3. for HOG, pass 'cityblock' as distance_metric parameter to retrieve method.
+#########################################
 
 cfg = read_config()
 filenames, sketch_categories, sketches = load_images_from_dir(cfg['sketch_dir'])
@@ -27,7 +33,7 @@ for category in sketch_categories:
 
 for k in klist:
     print("Performance metrics at k = ", k)
-    results = retrieve(sketches, feature_bank, k, 'cityblock')
+    results = retrieve(sketches, feature_bank, k, None) #'cityblock'
 
     ppq = []  # precision per query
     rpq = []
@@ -70,10 +76,10 @@ step_kwargs = ({'step': 'post'}
                if 'step' in signature(plt.fill_between).parameters
                else {})
 
-print("avg recall values", avg_recall_values)
 print("avg precision values", avg_precision_values)
+print("avg recall values", avg_recall_values)
 plt.step(avg_recall_values, avg_precision_values)
-plt.fill_between(np.array(avg_recall_values), np.array(avg_precision_values), alpha=0.2, **step_kwargs)
+plt.fill_between(avg_recall_values, avg_precision_values, alpha=0.2, **step_kwargs)
 plt.title("Precision Recall curve")
 plt.show()
 

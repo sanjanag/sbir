@@ -1,10 +1,22 @@
-import glob
+import os
+
 import cv2
+
+from util import get_categories
+
+
+def get_filenames(dir_path):
+    filenames = []
+    for root, subdirs, files in os.walk(dir_path):
+        for f in files:
+            filenames.append(os.path.join(root, f))
+    return filenames
 
 
 def load_images(image_dir):
-    files = glob.glob(image_dir + "/*")
-    image_tuples = []
-    for filepath in files:
-        image_tuples.append((filepath, cv2.imread(filepath, 0)))
-    return image_tuples
+    filenames = get_filenames(image_dir)
+    images = []
+    for path in filenames:
+        images.append(cv2.imread(path))
+    assert len(filenames) == len(images)
+    return filenames, get_categories(filenames), images

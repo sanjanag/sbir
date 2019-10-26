@@ -1,14 +1,14 @@
 import pickle
 
 from extract_features import extract_features
-from load import load_images
+from load import load_images_from_dir
 from preprocess import preprocess_images
 from util import read_config
 
 cfg = read_config()
 
 print("Loading images")
-filenames, categories, images = load_images(cfg['image_dir'])
+filenames, categories, images = load_images_from_dir(cfg['image_dir'])
 pickle.dump(filenames, open(cfg['filenames'], 'wb'))
 pickle.dump(categories, open(cfg['categories'], 'wb'))
 print("Num of images loaded: " + str(len(images)))

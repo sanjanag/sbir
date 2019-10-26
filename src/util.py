@@ -1,7 +1,10 @@
 import pickle
 
-import yaml
 import cv2
+import matplotlib.pyplot as plt
+import yaml
+from mpl_toolkits.axes_grid1 import ImageGrid
+
 
 def read_config():
     with open("../config.yml", 'r') as ymlfile:
@@ -33,13 +36,31 @@ def calc_precision(sketch_category, retrieved_categories):
         retrieved_categories[retrieved_categories == sketch_category]) / len(
         retrieved_categories)
 
+
 def read_image(filepath):
     return cv2.imread(filepath, cv2.IMREAD_UNCHANGED)
+
 
 def bgr_to_rgb(bgrImage):
     cv2.cvtColor(bgrImage, cv2.COLOR_BGR2RGB)
 
-def display_image(title, image):
-    cv2.imshow(title, image)
-    cv2.waitKey(1000)
-    cv2.destroyAllWindows()
+
+def display_results(images, save_file='result.png'):
+    fig = plt.figure(1, (20, 10))
+    grid = ImageGrid(fig, 111, nrows_ncols=(2, len(images) // 2),
+                     share_all=True, label_mode="1")
+    for i in range(len(images)):
+        grid[i].imshow(images[i])
+    grid.axes_llc.set_xticks([])
+    grid.axes_llc.set_yticks([])
+    plt.savefig(save_file)
+    plt.show()
+
+
+def get_result_filenames(query_result, cfg):
+    img_indices = [res[1] for res in query_result]
+    filenames = pickle.load(open(cfg['filenames'], "rb"))
+    res_files = []
+    for idx in img_indices:
+        res_files.append(filenames[idx])
+    return res_files

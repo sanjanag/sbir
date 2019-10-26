@@ -1,13 +1,13 @@
 import pickle
 
-from load import load_images
+from load import load_images_from_dir
 from retrieval import retrieve
 from util import calc_precision
 from util import get_categories_from_indices
 from util import read_config
 
 cfg = read_config()
-filenames, sketch_categories, sketches = load_images(cfg['sketch_dir'])
+filenames, sketch_categories, sketches = load_images_from_dir(cfg['sketch_dir'])
 feature_bank = pickle.load(open(cfg['feature_bank'], "rb"))
 k = 10
 print(len(sketches))

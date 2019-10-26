@@ -17,6 +17,6 @@ def load_images(image_dir):
     filenames = get_filenames(image_dir)
     images = []
     for path in filenames:
-        images.append(cv2.imread(path))
+        images.append(cv2.imread(path,cv2.IMREAD_UNCHANGED))
     assert len(filenames) == len(images)
     return filenames, get_categories(filenames), images

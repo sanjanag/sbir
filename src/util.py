@@ -10,7 +10,10 @@ def read_config():
 
 
 def get_category(image_path):
-    return image_path.split('/')[-2]
+    if '/' in image_path:
+        return image_path.split('/')[-2]
+    else:
+        return image_path.split('\\')[-2]
 
 
 def get_categories(path_list):
@@ -29,9 +32,12 @@ def get_categories_from_indices(indices, categories_file):
 
 
 def calc_precision(sketch_category, retrieved_categories):
-    return len(
-        retrieved_categories[retrieved_categories == sketch_category]) / len(
-        retrieved_categories)
+    true_positives = [category for category in retrieved_categories if category == sketch_category]
+    return len(true_positives) / len(retrieved_categories)
+
+def calc_recall(sketch_category, retrieved_categories, total_positives):
+    true_positives = [category for category in retrieved_categories if category == sketch_category]
+    return len(true_positives) / total_positives
 
 def read_image(filepath):
     return cv2.imread(filepath, cv2.IMREAD_UNCHANGED)

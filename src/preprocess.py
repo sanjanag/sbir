@@ -2,13 +2,13 @@ import cv2
 
 
 def preprocess_images(images):
-    print("Applying grayscale transformation")
+    # print("Applying grayscale transformation")
     processed_images = convert_grayscale(images)
     return processed_images
 
 
 def preprocess_sketches(sketches):
-    print("Applying grayscale transformation")
+    # print("Applying grayscale transformation")
     processed_images = convert_grayscale(sketches)
     return processed_images
 

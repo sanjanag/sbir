@@ -1,154 +1,268 @@
 <!DOCTYPE html>
-<html lang="en"><head>  
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <title>Computer Vision Class Project
-  | CS, Georgia Tech | Fall 2019: CS 6476</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Computer Vision Class Project
+        | CS, Georgia Tech | Fall 2019: CS 6476</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<!-- Le styles -->  
-  <link href="css/bootstrap.css" rel="stylesheet">
-<style>
-body {
-padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-}
-.vis {
-color: #3366CC;
-}
-.data {
-color: #FF9900;
-}
-</style>
-  
-<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
 
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+        .vis {
+            color: #3366CC;
+        }
+
+        .data {
+            color: #FF9900;
+        }
+    </style>
+
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
 
 <body>
 <div class="container">
-<div class="page-header">
+    <div class="page-header">
 
-<!-- Title and Name --> 
-<h1>Sketch-Based Image Retrieval</h1> 
-<span style="font-size: 20px; line-height: 1.5em;"><strong>Ramya Sree Boppana (903456349), Ang Deng (902989694), and Sanjana Garg (903475801)</strong></span><br>
-<span style="font-size: 18px; line-height: 1.5em;">Fall 2019: CS 6476 Computer Vision: Class Project</span><br>Georgia Tech</span>
-<hr>
-
-
-<!-- Introduction -->
-<h3>Problem Statement</h3>
-In this project, we aim to retrieve images from a database using a sketch. Our motivation for the problem arises from the limitation of traditional text-based image search methods. As the database of images is growing larger and larger, it is difficult and unrealistic to annotate all the images for text-based search. Using sketch to retrieve images also alleviates the need for generating accurate captions for existing images, which becomes a complex natural language processing problem as the description is required to be more specific and detailed. Sketches have a much greater potential to describe the content and exact details of the image than plain text and are a more direct way of expressing human thoughts than text abstraction.  With the increasing use of touch screen devices, Sketch-Based Image Retrieval (SBIR) has relevant applications in e-commerce platforms also. The sketch used for retrieving images can be categorized into two types: scene-sketch, object-sketch. For our project, we are focusing on using just object sketches for image retrieval.
-<br>
-<br> We aim to build a system that takes a sketch image file as input and retrieves top k similar images from the database as output. 
-To achieve our goal, we will apply techniques that we have learned in class as well as knowledge gained from current literature in the field.
+        <!-- Title and Name -->
+        <h1>Sketch-Based Image Retrieval</h1>
+        <span style="font-size: 20px; line-height: 1.5em;"><strong>Ramya Sree Boppana (903456349), Ang Deng (902989694), and Sanjana Garg (903475801)</strong></span><br>
+        <span style="font-size: 18px; line-height: 1.5em;">Fall 2019: CS 6476 Computer Vision: Class Project</span><br>Georgia
+        Tech</span>
+        <hr>
 
 
-<br><br>
-<!-- Approach -->
-<h3>Approach</h3>
-<!-- In our approach, we aim to tackle the following aspects of sketch-image differences: <br>
-<h4>Visual Cue Imbalance</h4>
-The sketches usually have a holistic shape and salient local shapes while the images are abundant in details on shape, texture, and color.
-<h4>Abstraction Gap</h4>
-The sketches are usually a simplified version (missing details) of images with random distortion (the randomness in strokes) and unrealistic disproportion (object parts being unrealistically smaller or bigger). 
-<br>
- -->
- 
-<!-- Approach Figure --> 
-In our approach, we aim to tackle the following aspects of sketch-image differences:
-<ul>
-<li><b>Visual Cue Imbalance:</b> The sketches have a holistic shape and salient local shapes while the images are abundant in details on shape, texture, and color.</li> 
-<li><b>Abstraction Gap:</b> The sketches are usually simplified version (missing details) of images with random distortion (the randomness in strokes) and unrealistic disproportion (object parts being unrealistically smaller or bigger).</li> 
-</ul>
+        <!-- Introduction -->
+        <h3>Problem Statement</h3>
+        Systems that retrieve images given a sketch as input are referred as
+        sketch based image retrieval systems. Sketch based image retrieval
+        systems have many applications in daily life like
+        Medical diagnosis, digital library, search engines, crime prevention,
+        photo sharing sites, geographical information, and sensing remote
+        systems. The traditional text-based image retrieval systems are limited
+        as with growing database of images it is difficult and unrealistic to
+        annotate all the images for text-based search. Using sketch to retrieve
+        images also alleviates the need for generating accurate captions for
+        existing images, which becomes a complex natural language processing
+        problem as the description is required to be more specific and
+        detailed. Sketches have a much greater potential to describe the
+        content and exact details of the image than plain text and are a more
+        direct way of expressing human thoughts than text abstraction. With the
+        increasing use of touch screen devices, Sketch-Based Image Retrieval
+        (SBIR) has relevant applications in e-commerce platforms also. The
+        sketch used for retrieving images can be categorized into two types:
+        scene-sketch, object-sketch. For our project, we are focusing on using
+        object sketches for image retrieval.
 
-<div style="text-align: center;">
-<img style="height: 250px;" alt="" src="proposal_approach_flow_diagram.png">
+        <h3>Goal</h3>
+        We aim to build a system that retrieves images based on sketch. Our
+        plan is to employ the techniques learnt in class and from the current
+        literature to perform this task and compare how different features
+        perform on different kind of images and dataest. We are also providing
+        a framework for this task where the user can write their own features,
+        provide their dataset and specify the distance function to compute
+        similarity.
+
+        <br><br>
+        <!-- Approach -->
+        <h3>Approach</h3>
+        <!-- In our approach, we aim to tackle the following aspects of sketch-image differences: <br>
+        <h4>Visual Cue Imbalance</h4>
+        The sketches usually have a holistic shape and salient local shapes while the images are abundant in details on shape, texture, and color.
+        <h4>Abstraction Gap</h4>
+        The sketches are usually a simplified version (missing details) of images with random distortion (the randomness in strokes) and unrealistic disproportion (object parts being unrealistically smaller or bigger).
+        <br>
+         -->
+
+        <!-- Approach Figure -->
+        In our approach, we aim to tackle the following aspects of sketch-image
+        differences:
+        <ul>
+            <li><b>Visual Cue Imbalance:</b> The sketches have a holistic shape
+                and salient local shapes while the images are abundant in
+                details on shape, texture, and color.
+            </li>
+            <li><b>Abstraction Gap:</b> The sketches are usually simplified
+                version (missing details) of images with random distortion (the
+                randomness in strokes) and unrealistic disproportion (object
+                parts being unrealistically smaller or bigger).
+            </li>
+        </ul>
+
+        <div style="text-align: center;">
+            <img style="height: 250px;" alt=""
+                 src="proposal_approach_flow_diagram.png">
+        </div>
+        The whole SBIR framework can be divided into two phases- pre-processing
+        and retrieval. The framework is shown in the above figure.
+        <h4>Pre-Processing Phase</h4>
+        In this phase, we pre-process the dataset to extract features. For
+        every image in the dataset, we perform the following steps.
+        <ul>
+            <li><b>Edge extraction</b></li>
+            Convert the image to its gray intensity representation.
+            <br>Extract local edge features using the Canny edge detector. Edge
+            extraction addresses the visual cue imbalance. Since the sketches
+            are generally composed of strokes which are mostly edges, it is
+            intuitive to compare edge maps of images with sketches. We use a
+            high threshold to extract only the salient edges and thus address
+            the simplification sub-aspect of the abstraction gap.
+            <li><b>Feature extraction</b></li>
+            In this step, we encode the edge feature maps to representations
+            that are efficient for similarity comparison.<br>
+            We extract histogram-based local features like SIFT, Histogram of
+            Oriented Gradients (HOG) and global features like shape. The
+            histogram features can tolerate random distortions in the sketches
+            due to the grid division scheme in feature extraction.
+        </ul>
+        <h4>Retrieval Phase</h4>
+        This is the phase in which the query image is processed to retrieve
+        similar images.
+        <ul>
+            <li><b>Feature extraction</b></li>
+            Similar to the feature extraction step of the pre-processing phase,
+            we extract a histogram of features from the input sketch image.
+            Since sketches are close to the edge map of images, we do not have
+            the step of edge extraction in this phase.
+            <li><b>Similarity comparison</b></li>
+            To compare the histogram-based features of the input sketch and the
+            dataset images, we plan to use one or more of the metrics to
+            calculate the similarity between histograms like city block,
+            cosine, Chi-square, Euclidean distance, and histogram intersection
+            distances. <br>
+            The top 'k' similar images from the above step are retrieved as
+            output.
+        </ul>
+
+        <br>
+        <!-- Results -->
+        <h3>Experiments and Results</h3>
+
+        <h4>Setup</h4>
+        <ol>
+            <li><b>Datasets</b>
+                <ul>
+                    <li><b>The Sketchy Database</b> <br>This is the first
+                        large-scale collection of sketch-photo pairs. The
+                        dataset has 125 categories of objects with 100 images
+                        per category and 75,471 sketches of 12,500 objects.
+                        Images and sketches vary in shape, scale and
+                        orientation.<br><a
+                                href="http://sketchy.eye.gatech.edu/explore/banana.html">http://sketchy.eye.gatech.edu/explore/banana.html</a>
+                    </li>
+                    <li><b>Shoe</b><br>This dataset is organized into two
+                        categories of photos and sketches - shoe and chair and
+                        has a total of 1,432 sketch-photo pairs. Images and
+                        sketches are of the scale and orientation.<br> <a
+                                href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html</a>
+                    </li>
+                </ul>
+                We first start with the two category dataset <b>Shoe</b> for
+                our problem, to test our features and then experiment with <b>The
+                    Sketchy</b> database which has more number of categories.
+            </li>
+
+
+            <li><b>Implementation</b><br>
+                For our implementation, we will be using existing libraries in
+                Python like OpenCV for edge detection, feature extraction and
+                scipy for similarity metrics computation. We will build a
+                pipeline for the pre-processing and retrieval phases mentioned
+                above.
+            </li>
+            <li><b>Goal</b><br>
+                The ability of our system to retrieve similar images to a user
+                provided sketch image defines the success of our project.
+            </li>
+
+            <li><b>Evaluation metrics</b><br>
+                We will be evaluating the performance of our system using the
+                below metrics.
+                <ul>
+                    <li><b>Precision at k:</b> For a given query sketch image,
+                        precision at k images (P@k) is (e.g., P@10 or
+                        "Precision at 10") corresponds to the number of
+                        relevant images among the top k images retrieved.
+                    </li>
+                    <li>
+                        <b>Average Precision at k per category:</b> We evaluate
+                        the peformance of our system for each category of
+                        images in the dataset using this metric. This is
+                        calculated as follows for a category.
+                        Consider each sketch image in the category as query and
+                        calculate P@k for that query image. Calculate mean of
+                        the P@k scores for each query.
+                    </li>
+                    <li><b>Average Precision at k per dataset:</b> To calculate
+                        this metric, we consider every sketch image in the
+                        dataset as query image, calculate P@k for that query
+                        image and calculate mean of the P@k scores for each
+                        query.
+                    </li>
+                </ul>
+            </li>
+        </ol>
+        <h4>Experiments</h4>
+        Using the above setup (datasets and evaluation metrics) following are
+        some of the experiments we plan to perform.
+        <ul>
+            <li>Experiment with different image features for different
+                categories of objects and evaluate which features perform
+                better for a category.
+            </li>
+            <li>Experiment with different datasets - Shoe and The Sketchy and
+                evaluate how the system performs for different scales and
+                orientations of sketches.
+            </li>
+        </ul>
+        <h5>Uncertainty about potential outcomes</h5>
+        The datasets we will be using are benchmarked for fine-grained
+        sketch-based image retrieval that is used to embed images and sketches
+        of different scales and orientations in the same feature space using
+        convolutional networks. However, we intend to use traditional
+        techniques in computer vision for constructing our feature
+        representations which makes us uncertain about how these hand-crafted
+        features would perform on these datasets.
+
+
+        <br><br>
+
+        <h3>References/Citations</h3>
+        [1] Li, Y. & Li, W. Machine Vision and Applications (2018) 29: 1083.
+        https://doi.org/10.1007/s00138-018-0953-8
+        <br>[2] M. Eitz, K. Hildebrand, T. Boubekeur and M. Alexa,
+        "Sketch-Based Image Retrieval: Benchmark and Bag-of-Features
+        Descriptors," in IEEE Transactions on Visualization and Computer
+        Graphics, vol. 17, no. 11, pp. 1624-1636, Nov. 2011.
+        <br>[3] Xiao, Changcheng & Wang, Changhu & Zhang, Liqing & Zhang, Lei.
+        (2015). Sketch-based Image Retrieval via Shape Words. 571-574.
+        10.1145/2671188.2749360.
+        <br>[4] C. Xiao, C. Wang, L. Zhang, and L. Zhang, “IdeaPanel,” in
+        Proceedings of the 5th ACM on International Conference on Multimedia
+        Retrieval-ICMR '15, pp. 667-668 (2015).
+
+        <br><br>
+
+        <hr>
+        <footer>
+            <p>© Ramya Sree Boppana, Ang Deng, and Sanjana Garg </p>
+        </footer>
+    </div>
 </div>
-The whole SBIR framework can be divided into two phases- pre-processing and retrieval. The framework is shown in the above figure.
-<h4>Pre-Processing Phase</h4>
-In this phase, we pre-process the dataset to extract features. For every image in the dataset, we perform the following steps.
-<ul>
-<li><b>Edge extraction</b></li>
-Convert the image to its gray intensity representation.
-<br>Extract local edge features using the Canny edge detector. Edge extraction addresses the visual cue imbalance. Since the sketches are generally composed of strokes which are mostly edges, it is intuitive to compare edge maps of images with sketches. We use a high threshold to extract only the salient edges and thus address the simplification sub-aspect of the abstraction gap.
-<li><b>Feature extraction</b></li>
-In this step, we encode the edge feature maps to representations that are efficient for similarity comparison.<br>
-We extract histogram-based local features like SIFT, Histogram of Oriented Gradients (HOG) and global features like shape. The histogram features can tolerate random distortions in the sketches due to the grid division scheme in feature extraction.
-</ul>
-<h4>Retrieval Phase</h4>
-This is the phase in which the query image is processed to retrieve similar images.
-<ul>
-<li><b>Feature extraction</b></li>
-Similar to the feature extraction step of the pre-processing phase, we extract a histogram of features from the input sketch image. Since sketches are close to the edge map of images, we do not have the step of edge extraction in this phase.
-<li><b>Similarity comparison</b></li>
-To compare the histogram-based features of the input sketch and the dataset images, we plan to use one or more of the metrics to calculate the similarity between histograms like city block, cosine, Chi-square, Euclidean distance, and histogram intersection distances. <br>
-The top 'k' similar images from the above step are retrieved as output.
-</ul>
-
-<br>
-<!-- Results -->
-<h3>Experiments and Results</h3>
-
-<h4>Setup</h4>
-<ol>
-<li><b>Datasets</b>
-  <ul>
-<li><b>The Sketchy Database</b> <br>This is the first large-scale collection of sketch-photo pairs. The dataset has 125 categories of objects with 100 images per category and 75,471 sketches of 12,500 objects. Images and sketches vary in shape, scale and orientation.<br><a href="http://sketchy.eye.gatech.edu/explore/banana.html">http://sketchy.eye.gatech.edu/explore/banana.html</a></li>
-<li><b>Shoe</b><br>This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of the scale and orientation.<br> <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html</a></li>
-</ul>
-We first start with the two category dataset <b>Shoe</b> for our problem, to test our features and then experiment with <b>The Sketchy</b> database which has more number of categories.
-</li>
- 
-
-<li><b>Implementation</b><br>
-For our implementation, we will be using existing libraries in Python like OpenCV for edge detection, feature extraction and scipy for similarity metrics computation. We will build a pipeline for the pre-processing and retrieval phases mentioned above. 
-</li>
-<li><b>Goal</b><br>
-The ability of our system to retrieve similar images to a user provided sketch image defines the success of our project.</li>
-
-<li><b>Evaluation metrics</b><br>
-We will be evaluating the performance of our system using the below metrics.
-<ul>
-<li><b>Precision at k:</b> For a given query sketch image, precision at k images (P@k) is (e.g., P@10 or "Precision at 10") corresponds to the number of relevant images among the top k images retrieved.</li>
-<li>
-<b>Average Precision at k per category:</b> We evaluate the peformance of our system for each category of images in the dataset using this metric. This is calculated as follows for a category.
-Consider each sketch image in the category as query and calculate P@k for that query image. Calculate mean of the P@k scores for each query.</li>
-<li><b>Average Precision at k per dataset:</b> To calculate this metric, we consider every sketch image in the dataset as query image, calculate P@k for that query image and calculate mean of the P@k scores for each query.</li>
-</ul>
-</li>
-</ol>
-<h4>Experiments</h4>
-Using the above setup (datasets and evaluation metrics) following are some of the experiments we plan to perform.
-<ul>
-<li>Experiment with different image features for different categories of objects and evaluate which features perform better for a category.</li>
-<li>Experiment with different datasets - Shoe and The Sketchy and evaluate how the system performs for different scales and orientations of sketches.</li>
-</ul>
-<h5>Uncertainty about potential outcomes</h5>
-The datasets we will be using are benchmarked for fine-grained sketch-based image retrieval that is used to embed images and sketches of different scales and orientations in the same feature space using convolutional networks. However, we intend to use traditional techniques in computer vision for constructing our feature representations which makes us uncertain about how these hand-crafted features would perform on these datasets.
-
 
 <br><br>
 
-<h3>References/Citations</h3>
-[1] Li, Y. & Li, W. Machine Vision and Applications (2018) 29: 1083. https://doi.org/10.1007/s00138-018-0953-8
-<br>[2] M. Eitz, K. Hildebrand, T. Boubekeur and M. Alexa, "Sketch-Based Image Retrieval: Benchmark and Bag-of-Features Descriptors," in IEEE Transactions on Visualization and Computer Graphics, vol. 17, no. 11, pp. 1624-1636, Nov. 2011.
-<br>[3] Xiao, Changcheng & Wang, Changhu & Zhang, Liqing & Zhang, Lei. (2015). Sketch-based Image Retrieval via Shape Words. 571-574. 10.1145/2671188.2749360. 
-<br>[4] C. Xiao, C. Wang, L. Zhang, and L. Zhang, “IdeaPanel,” in Proceedings of the 5th ACM on International Conference on Multimedia Retrieval-ICMR '15, pp. 667-668 (2015).
-
-<br><br>
-
-  <hr>
-  <footer> 
-  <p>© Ramya Sree Boppana, Ang Deng, and Sanjana Garg </p>
-  </footer>
-</div>
-</div>
-
-<br><br>
-
-</body></html>
+</body>
+</html>

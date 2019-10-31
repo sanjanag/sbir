@@ -217,17 +217,21 @@
         <h3>Qualitative results</h3>
 
         <h3>Conclusion and future work</h3>
-        We will be testing our current implementation of framework   
-        -extend to work with sketchy db with many cate, scale, orient 
-and try to cascade sift and hog as sift is invariant to scale, orientat.. but hog is performing better for some categories
-The Sketchy Database</b> <br>This is the first
-                        large-scale collection of sketch-photo pairs. The
-                        dataset has 125 categories of objects with 100 images
-                        per category and 75,471 sketches of 12,500 objects.
-                        Images and sketches vary in shape, scale and
-                        orientation.<br><a
-                                href="http://sketchy.eye.gatech.edu/explore/banana.html">http://sketchy.eye.gatech.edu/explore/banana.html</a>
-                    </li>
+        We will be evaluating the performance of our current implementation of framework 
+        and feature extractors (HOG, SIFT and Hu Moments)
+        with <a href="http://sketchy.eye.gatech.edu/explore/banana.html"> The Sketchy Database </a>
+        which is the first large-scale collection of sketch-photo pairs. The
+        dataset has 125 categories of objects with 100 images
+        per category and 75,471 sketches of 12,500 objects. Unlike the shoe dataset, 
+        this database is benchmarked for fine-grained sketch-based image retrieval 
+        that is used to embed images and sketches of different scales and orientations 
+        in the same feature space using convolutional networks. Since the highly performing 
+        feature descriptor HOG is not rotation-scale invariant, we will try cascading the
+        weak but rotation-scale invariant descriptors- SIFT, Hu Moments with HOG to improve 
+        performance with The Sketchy Database. Along with this, we may try options like 
+        query expansion discussed in the class, training ML/DL models with some/all of these features
+
+        </li>
 
         <br><br>
 

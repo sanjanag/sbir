@@ -120,38 +120,44 @@
         <h4>Pre-Processing Phase</h4>
         In this phase, we pre-process the dataset to extract features. For
         every image in the dataset, we perform the following steps.
-        <ul>
-            <li><b>Edge extraction</b></li>
-            Convert the image to its gray intensity representation.
-            <br>Extract local edge features using the Canny edge detector. Edge
-            extraction addresses the visual cue imbalance. Since the sketches
-            are generally composed of strokes which are mostly edges, it is
-            intuitive to compare edge maps of images with sketches. We use a
-            high threshold to extract only the salient edges and thus address
-            the simplification sub-aspect of the abstraction gap.
-            <li><b>Feature extraction</b></li>
-            In this step, we encode the edge feature maps to representations
-            that are efficient for similarity comparison.<br>
-            We extract histogram-based local features like SIFT, Histogram of
-            Oriented Gradients (HOG) and global features like shape. The
-            histogram features can tolerate random distortions in the sketches
-            due to the grid division scheme in feature extraction.
-        </ul>
+        <h5>Feature/Edge extraction</h5>
+        Convert the image to its gray intensity representation. Extract local edge or global shape features 
+        and encode them in a feature vector using representations like histogram.
+        The histogram based features are efficient for similarity comparison 
+        and they can also tolerate random distortions in the sketches
+        due to the grid division scheme in feature extraction.
+        Edge/shape extraction addresses the visual cue imbalance. Since the sketches
+        are generally composed of strokes which are mostly edges, it is
+        intuitive to compare edge maps of images with sketches. This also addresses
+        the simplification sub-aspect of the abstraction gap. 
+        Some of the feature extraction methods we have tried are described below.
+        <ol>
+            <b> <li>  HOG  </li> </b>
+            <b> <li> SIFT  </li> </b>
+            <b> <li> Hu Moments </li> </b>
+            Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation. 
+            We consider this a global shape feature descriptor.
+        </ol>
         <h4>Retrieval Phase</h4>
         This is the phase in which the query image is processed to retrieve
         similar images.
         <ul>
             <li><b>Feature extraction</b></li>
             Similar to the feature extraction step of the pre-processing phase,
-            we extract a histogram of features from the input sketch image.
-            Since sketches are close to the edge map of images, we do not have
-            the step of edge extraction in this phase.
+            we extract features from the input sketch image and form a feature vector.
             <li><b>Similarity comparison</b></li>
-            To compare the histogram-based features of the input sketch and the
-            dataset images, we plan to use one or more of the metrics to
-            calculate the similarity between histograms like city block,
-            cosine, Chi-square, Euclidean distance, and histogram intersection
-            distances. <br>
+            <ol>
+                <b> <li> L2 Norm </li> </b> 
+                L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.
+                <b> <li> L1 Norm </li> </b>
+                L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG.
+                <br> <br> 
+                We chose the distance metrics as per [5] which says that Manhattan distance (L1 norm) may be
+                preferable to Euclidean distance (L2 norm) for the case of high dimensional data. As described in 
+                the approach section above, HOG features' dimensions are significantly higher than that of SIFT and Hu Moments.  
+
+            </ol>
+         <br>
             The top 'k' similar images from the above step are retrieved as
             output.
         </ul>
@@ -345,7 +351,10 @@
         Proceedings of the 5th ACM on International Conference on
         Multimedia
         Retrieval-ICMR '15, pp. 667-668 (2015).
-
+        <br>[5] Aggarwal C.C., Hinneburg A., Keim D.A. (2001) On the 
+        Surprising Behavior of Distance Metrics in High Dimensional Space. 
+        In: Van den Bussche J., Vianu V. (eds) Database Theory — ICDT 2001. ICDT 2001. 
+        Lecture Notes in Computer Science, vol 1973. Springer, Berlin, Heidelberg
         <br><br>
 
         <hr>

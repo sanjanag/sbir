@@ -155,33 +155,26 @@
         </ul>
         <br>
 
-        <h4>Setup</h4>
-        <ol>
-            <li><b>Datasets</b>
-                <ul>
-                    <li><b>The Sketchy Database</b> <br>This is the first
-                        large-scale collection of sketch-photo pairs. The
-                        dataset has 125 categories of objects with 100 images
-                        per category and 75,471 sketches of 12,500 objects.
-                        Images and sketches vary in shape, scale and
-                        orientation.<br><a
-                                href="http://sketchy.eye.gatech.edu/explore/banana.html">http://sketchy.eye.gatech.edu/explore/banana.html</a>
-                    </li>
-                    <li><b>Shoe</b><br>This dataset is organized into two
-                        categories of photos and sketches - shoe and chair and
-                        has a total of 1,432 sketch-photo pairs. Images and
-                        sketches are of the scale and orientation.<br> <a
-                                href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html</a>
-                    </li>
-                </ul>
+        <h3>Experiments and Results</h3>
+        
+        <h4>Experimental Setup</h4>
+            <li><b>Dataset Used: </b><b>The Shoe Dataset</b><br>
+                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of the scale and orientation.<br> 
+                <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html</a>
+                <br>
                 We first start with the two category dataset <b>Shoe</b> for
-                our problem, to test our features and then experiment with <b>The
-                    Sketchy</b> database which has more number of categories.
-            </li>
+                    our problem, to test our features.</li>
+            <li><b>Input</b><br>
+                200 images of shoes and 200 images of chairs.
 
-            <li><b>Evaluation metrics</b><br>
-                We will be evaluating the performance of our system using the
+            <li><b>Output</b><br>
+                200 sketches of shoes and 200 sketches of chairs as query sketches.
+            </li>
+        <br>
+        <h4>Evaluation metrics</h4>
+                We will be evaluating the performance of our system (different descriptors and different parameters) using the
                 below metrics.
+
                 <ul>
                     <li><b>Precision at k:</b> For a given query sketch image,
                         precision at k images (P@k) is (e.g., P@10 or
@@ -215,100 +208,12 @@
                         return the average of R@k score for each query.
                     </li>
                 </ul>
-            </li>
+        <br>
+        <h4>Baseline</h4>
+            Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.           
+            
+        
         </ol>
-
-
-        <h4>Implementation Done</h4>
-        <ol>
-            <li>Features</li>
-            Write a one line description of the features and why are we using
-            them.
-            <ul>
-                <li>HoG</li>
-                <li>SIFT</li>
-                <li>Hu Moments</li>
-                <ul>
-                <li>Hu Moments generates descripters based on the outer contours of an shape. It is invariant to translation, size and rotation. We consider this a global shape feature descriptor.</li>
-                </ul>
-            </ul>
-            <li>Framework<br>
-                We have implemented a framework where the user can provide
-                their dataset, features and distance metric or use the ones
-                provided by us for retrieving similar images. We have used both
-                existing libraries like OpenCV and scipy and custom code for
-                feature extraction and distance calculation.
-            </li>
-            <li>Evaluation Metrics</li>
-            <ul>
-
-            </ul>
-
-        </ol>
-
-        <h3>Experiments and Results</h3>
-        <li><b>Input</b><br>
-            200 images of shoes and 200 images of chairs.
-
-        <li><b>Output</b><br>
-            200 sketches of shoes and 200 sketches of chairs as query
-            sketches.
-        </li>
-
-        <li><b>Evaluation metrics</b><br>
-            We will be evaluating the performance of our system using
-            the
-            below metrics.
-            <ul>
-                <li><b>Precision at k:</b> For a given query sketch
-                    image,
-                    precision at k images (P@k) is (e.g., P@10 or
-                    "Precision at 10") corresponds to the number of
-                    relevant images among the top k images retrieved.
-                </li>
-                <li>
-                    <b>Average Precision at k per category:</b> We
-                    evaluate
-                    the peformance of our system for each category of
-                    images in the dataset using this metric. This is
-                    calculated as follows for a category.
-                    Consider each sketch image in the category as query
-                    and
-                    calculate P@k for that query image. Calculate mean
-                    of
-                    the P@k scores for each query.
-                </li>
-                <li><b>Average Precision at k per dataset:</b> To
-                    calculate
-                    this metric, we consider every sketch image in the
-                    dataset as query image, calculate P@k for that
-                    query
-                    image and calculate mean of the P@k scores for each
-                    query.
-                </li>
-            </ul>
-        </li>
-        </ol>
-        <h4>Experiments</h4>
-        Using the above setup (datasets and evaluation metrics) following
-        are
-        some of the experiments we plan to perform.
-        <ul>
-            <li>Experiment with different image features for different
-                categories of objects and evaluate which features perform
-                better for a category.
-            </li>
-                <ul>
-                <li> For Hu Moments, based on the Shoes Dataset, the performance for both 
-                    categories average to be about the same (between 0.6 to 0.7 accuracy). 
-                </li>
-                </ul>
-            <li>Experiment with different datasets - Shoe and The Sketchy
-                and
-                evaluate how the system performs for different scales and
-                orientations of sketches.
-            </li>
-        </ul>
         <h3>Qualitative results</h3>
 
         <h3>Conclusion and future work</h3>

@@ -45,47 +45,37 @@
 
 
         <!-- Introduction -->
-        <h3>Abstract</h3>
-
- 
-
-        Sketch based image retrieval systems have many applications in daily life like
+        <h3>Problem Statement</h3>
+        Systems that retrieve images given a sketch as input are referred as
+        sketch based image retrieval systems. Sketch based image retrieval
+        systems have many applications in daily life like
         Medical diagnosis, digital library, search engines, crime prevention,
         photo sharing sites, geographical information, and sensing remote
         systems. The traditional text-based image retrieval systems are limited
         as with growing database of images it is difficult and unrealistic to
-        annotate all the images for text-based search.
-        <br>
-        In order to tackle this problem, we build a pipeline combining preprocessing 
-        the images (gray scaling edge extraction) and extracting various feature descriptors
-        (SIFT, HOG, and Hu Moments)
-        from the images. Then, we take the extracted features from a input sketch and fetch the most similar k images from the database based on distance metrics corresponding to each type of feature descriptors.
-        <br>
-        Based on the test dataset which contains 50-50 images from two different categiries, 
-        we were able to achieve above baseline accuracy (50%) from all three descriptors what we implemented. Our next step will be to try to tweak the parameters of these feature
-        extractors and to try out strategies to combine the features in order to improve the 
-        overall performance.
+        annotate all the images for text-based search. Using sketch to retrieve
+        images also alleviates the need for generating accurate captions for
+        existing images, which becomes a complex natural language processing
+        problem as the description is required to be more specific and
+        detailed. Sketches have a much greater potential to describe the
+        content and exact details of the image than plain text and are a more
+        direct way of expressing human thoughts than text abstraction. With the
+        increasing use of touch screen devices, Sketch-Based Image Retrieval
+        (SBIR) has relevant applications in e-commerce platforms also. The
+        sketch used for retrieving images can be categorized into two types:
+        scene-sketch, object-sketch. For our project, we are focusing on using
+        object sketches for image retrieval.
 
-
-
-        <h3>Teaser Figure</h3>
-        Sample output from our application:<br>
-        Input:<br><br>
-        &emsp;&emsp;&emsp;&emsp;&emsp;<img style="height: 120px;" alt="" src="chair16.png"> <br><br>
-        Output:<br>
-        <img style="height: 300px;" alt="" src="hog_chair16.png">
-
+        <h3>Goal</h3>
+        We aim to build a system that retrieves images based on sketch. Our
+        plan is to employ the techniques learnt in class and from the current
+        literature to perform this task and compare how different features
+        perform on different kind of images and dataest. We are also providing
+        a framework for this task where the user can write their own features,
+        provide their dataset and specify the distance function to compute
+        similarity.
 
         <br><br>
-
-        <h3>Introduction</h3>
-
-        The traditional text-based image retrieval systems are limited as with growing database of images it is difficult and unrealistic to annotate all the images for text-based search. Using sketch to retrieve images also alleviates the need for generating accurate captions for existing images, which becomes a complex natural language processing problem as the description is required to be more specific and detailed. Sketches have a much greater potential to describe the content and exact details of the image than plain text and are a more direct way of expressing human thoughts than text abstraction.<br>
-        Sketch based image retrieval systems have many applications in daily life like Medical diagnosis, digital library, search engines, crime prevention, photo sharing sites, geographical information, and sensing remote systems. With the increasing use of touch screen devices, Sketch-Based Image Retrieval (SBIR) has relevant applications in e-commerce platforms also. <br>
-        Currently we are with regular RBG photographs, but the skeches are only black and white.
-        We are not designming any new way to solve this problem, but building from scratch using knowledge we obtained from class lectures and reseaches.<br>
-
-
         <!-- Approach -->
         <h3>Approach</h3>
         <!-- In our approach, we aim to tackle the following aspects of sketch-image differences: <br>
@@ -157,7 +147,7 @@
         </ul>
         <br>
 
-        <h4>Setup</h4>
+        <h3>Setup</h3>
         <ol>
             <li><b>Datasets</b>
                 <ul>
@@ -221,7 +211,7 @@
         </ol>
 
 
-        <h4>Implementation Done</h4>
+        <h3>Implementation Done</h3>
         <ol>
             <li>Features</li>
             Write a one line description of the features and why are we using
@@ -248,7 +238,7 @@
 
         </ol>
 
-        <h3>Experiments and Results</h3>
+        <h4>Experiments and Results</h4>
         <li><b>Input</b><br>
             200 images of shoes and 200 images of chairs.
 
@@ -311,9 +301,6 @@
                 orientations of sketches.
             </li>
         </ul>
-        <h3>Qualitative results</h3>
-
-        <h3>Conclusion and future work</h3>
         <h5>Uncertainty about potential outcomes</h5>
         The datasets we will be using are benchmarked for fine-grained
         sketch-based image retrieval that is used to embed images and

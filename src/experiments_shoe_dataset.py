@@ -82,6 +82,8 @@ print("avg recall values", avg_recall_values)
 plt.step([0] + avg_recall_values, [avg_precision_values[0]] + avg_precision_values)
 plt.fill_between([0] + avg_recall_values, avg_precision_values + [0], alpha=0.2, **step_kwargs)
 plt.title("Precision Recall curve")
+plt.xlabel("Recall")
+plt.ylabel("Precision")
 plt.show()
 
 for category in avg_precision_values_per_category:
@@ -93,4 +95,6 @@ for category in avg_precision_values_per_category:
     plt.fill_between([0] + recall_values, precision_values + [0], alpha=0.2, **step_kwargs)
     title = "Precision Recall curve for category- " + category
     plt.title(title)
+    plt.xlabel("Recall")
+    plt.ylabel("Precision")
     plt.show()

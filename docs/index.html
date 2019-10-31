@@ -88,15 +88,6 @@
 
         <!-- Approach -->
         <h3>Approach</h3>
-        <!-- In our approach, we aim to tackle the following aspects of sketch-image differences: <br>
-        <h4>Visual Cue Imbalance</h4>
-        The sketches usually have a holistic shape and salient local shapes while the images are abundant in details on shape, texture, and color.
-        <h4>Abstraction Gap</h4>
-        The sketches are usually a simplified version (missing details) of images with random distortion (the randomness in strokes) and unrealistic disproportion (object parts being unrealistically smaller or bigger).
-        <br>
-         -->
-
-        <!-- Approach Figure -->
         In our approach, we aim to tackle the following aspects of sketch-image
         differences:
         <ul>
@@ -132,7 +123,8 @@
         the simplification sub-aspect of the abstraction gap. 
         Some of the feature extraction methods we have tried are described below.
         <ol>
-            <b> <li>  HOG  </li> </b>
+            <b> <li>  HOG - Histogram of Oriented Gradients  </li> </b>
+            
             <b> <li> SIFT  </li> </b>
             <b> <li> Hu Moments </li> </b>
             Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation. 
@@ -320,18 +312,17 @@
         <h3>Qualitative results</h3>
 
         <h3>Conclusion and future work</h3>
-        <h5>Uncertainty about potential outcomes</h5>
-        The datasets we will be using are benchmarked for fine-grained
-        sketch-based image retrieval that is used to embed images and
-        sketches
-        of different scales and orientations in the same feature space
-        using
-        convolutional networks. However, we intend to use traditional
-        techniques in computer vision for constructing our feature
-        representations which makes us uncertain about how these
-        hand-crafted
-        features would perform on these datasets.
-
+        We will be testing our current implementation of framework   
+        -extend to work with sketchy db with many cate, scale, orient 
+and try to cascade sift and hog as sift is invariant to scale, orientat.. but hog is performing better for some categories
+The Sketchy Database</b> <br>This is the first
+                        large-scale collection of sketch-photo pairs. The
+                        dataset has 125 categories of objects with 100 images
+                        per category and 75,471 sketches of 12,500 objects.
+                        Images and sketches vary in shape, scale and
+                        orientation.<br><a
+                                href="http://sketchy.eye.gatech.edu/explore/banana.html">http://sketchy.eye.gatech.edu/explore/banana.html</a>
+                    </li>
 
         <br><br>
 

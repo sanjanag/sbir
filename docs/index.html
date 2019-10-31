@@ -176,32 +176,49 @@
                 200 images of shoes and 200 images of chairs.
 
             <li><b>Output</b><br>
-                For the input sketch, the best k matches from the total of 400 candidate images.
+                200 sketches of shoes and 200 sketches of chairs as query sketches.
             </li>
-
+        <br>
         <h4>Evaluation metrics</h4>
                 We will be evaluating the performance of our system (different descriptors and different parameters) using the
                 below metrics.
+
                 <ul>
-                <li><b>Precision and Recall at k:</b> For a given query sketch
-                    image,
-                    precision at k images (P@k) is (e.g., P@10 or
-                    "Precision at 10") corresponds to the number of
-                    relevant images among the top k images retrieved.
-                </li>
-                <li>
-                    <b>Average Precision at k per category:</b> We evaluate
-                    the peformance of our system for each category of
-                    images in the dataset using this metric. This is
-                    calculated as follows for a category.
-                    Consider each sketch image in the category as query
-                    and
-                    calculate P@k for that query image. Calculate mean
-                    of
-                    the P@k scores for each query.
-                </li>
-                
-            </ul>
+                    <li><b>Precision at k:</b> For a given query sketch image,
+                        precision at k images (P@k) is (e.g., P@10 or
+                        "Precision at 10") corresponds to the number of
+                        relevant images among the top k images retrieved.
+                    </li>
+                    <li><b>Average Precision at k per category:</b> We evaluate
+                        the performance of our system for each category of
+                        images in the dataset using this metric. Calculate P@k
+                        for each sketch image in the category and return the
+                        average of P@k scores.
+                    </li>
+                    <li><b>Average Precision at k per dataset:</b>
+                        Every sketch image in the dataset as query image and
+                        return the average of P@k score for each query.
+                    </li>
+                    <li><b>Recall at k:</b> For a given query sketch image,
+                        recall at k images (R@k) is (e.g., R@10 or "Recall at
+                        10") corresponds to the fraction of the number of
+                        relevant images retrieved from the total relevant
+                        images.
+                    </li>
+                    <li><b>Average Recall at k per category:</b>
+                        We evaluate the performance of our system for each
+                        category of images in the dataset using this metric.
+                        Calculate R@k for each sketch image in the category and
+                        return the average of R@k scores.
+                    </li>
+                    <li><b>Average Recall at k per dataset:</b>
+                        Every sketch image in the dataset as query image and
+                        return the average of R@k score for each query.
+                    </li>
+                </ul>
+        <br>
+        <h4>Baseline</h4>
+            Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.           
             
         
         </ol>

@@ -75,7 +75,7 @@
 
 
         <br><br>
- 
+
         <h3 style="color: #3366CC">Introduction</h3>
 
         The traditional text-based image retrieval systems are limited as with growing database of images it is difficult and unrealistic to annotate all the images for text-based search. Using sketch to retrieve images also alleviates the need for generating accurate captions for existing images, which becomes a complex natural language processing problem as the description is required to be more specific and detailed. Sketches have a much greater potential to describe the content and exact details of the image than plain text and are a more direct way of expressing human thoughts than text abstraction.<br>
@@ -133,11 +133,9 @@
             Gradients- magnitude and direction of the image are calculated. The image is 
             divided into windows of size 64 x 64. [The choice of this window size is described 
             in the experiments and results section below]. For each window, histogram of gradient 
-            directions is calculated. The histogram is divided into 9 bins(0,20,40..160). A gradient 
-            arrow and 180 degrees opposite to it are considered the same as unsigned gradients 
-            work better than signed gradients. Each pixel contributes the weight(gradient magnitude) 
-            proportionally to the bins it's angle is falling between.
-            To make the descriptor invariant to changes in illumination and shadowing, the 64 x 64 window is 
+            directions is calculated. The histogram is divided into 9 bins. Each pixel contributes the 
+            weight(gradient magnitude) proportionally to the bins it's angle is falling between.
+            To make the descriptor invariant to changes in illumination, the 64 x 64 window is 
             normalized by considering a block of size 128 x 128 which has 4 64 x 64 windows and 
             these 4 histograms (1 of each window) of size 9 x 1 are concatenated to a histogram of size 36 x 1. 
             And, this 128 x 128 block is slided along horizontally by 64 pixels and veritcally by 64 pixels 
@@ -145,16 +143,18 @@
             implies that the feature vector is of size 3*3*36 = 324. A 256 x 256 = 65,536 image is 
             now represented with a feature vector of size 324.          
             <br>
-            Calculating histogram over a patch not only makes the representation 
-            compact, but also makes it robust to noise in gradients. Operating on 
-            local windows makes the descriptor invariant to geometric and 
+            Calculating histogram over a patch not only makes the representation
+            compact, but also makes it robust to noise in gradients. Operating on
+            local windows makes the descriptor invariant to geometric and
             photometric transformations.
 
             <b> <li> SIFT  </li> </b>
+            The scale-invariant feature transform (SIFT) is used to detect local features in images. It transforms an image into a large collection of feature vectors, each of which is invariant to image translation, scaling, and rotation, partially invariant to illumination changes and robust to local geometric distortion. These features share similar properties with neurons in primary visual cortex that are encoding basic forms, color and movement for object detection in primate vision. Key locations are defined as maxima and minima of the result of difference of Gaussians function applied in scale space to a series of smoothed and resampled images. Low-contrast candidate points and edge response points along an edge are discarded. Dominant orientations are assigned to localized keypoints. These steps ensure that the keypoints are more stable for matching and recognition. SIFT descriptors robust to local affine distortion are then obtained by considering pixels around a radius of the key location, blurring and resampling of local image orientation planes.
             <b> <li> Hu Moments </li> </b>
             Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation.
             We consider this a global shape feature descriptor.
             <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation. Length of the descripter vector for Hu Moments is 7.
+
 
         </ol>
         We used OpenCV's implementation of above descriptors.
@@ -167,8 +167,8 @@
             we extract features from the input sketch image and form a feature vector.
             <li><b>Similarity comparison</b></li>
             <ul>
-                <li><b> L2 Norm</b>  - L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.</li> 
-                <li><b>  L1 Norm</b> - L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG. </li>  
+                <li><b> L2 Norm</b>  - L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.</li>
+                <li><b>  L1 Norm</b> - L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG. </li>
 
             </ul>
 
@@ -179,18 +179,18 @@
             The top 'k' similar images from the above step are retrieved as
             output.
         </ul>
-        <br>
+        
 
         <h3 style="color: #3366CC">Experiments and Results</h3>
 
         <h4>Experimental Setup</h4>
             <li><b>Dataset Used: <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">The Shoe Dataset </a></b><br>
-                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of different scales and orientations. We first start with a subset of this dataset which has 200 images of shoes and chairs each and 200 sketches of shoes and chairs each.
+                This dataset is organized into two categories of photos and sketches - shoe and chair. Images and sketches are of different scales and orientations. We first start with a subset of this dataset which has 200 images of shoes and chairs each and 200 sketches of shoes and chairs each.
             <li><b>Input for preprocessing</b> - 200 images of shoes and 200 images of chairs</li>
             <li><b>Output of preprocessing</b> - 400 feature vectors for each image</li>
             <li><b>Input for Retrieval phase</b> - 200 sketches of shoes and 200 sketches of chairs as query sketches</li>
             <li><b>Output of Retrieval phase</b> - Top k similar images for each query sketch</li>
-        
+
         <h4>Evaluation metrics</h4>
                 We will be evaluating the performance of our system (different descriptors and different parameters) using the
                 below metrics.
@@ -234,50 +234,51 @@
 
         <br>
 
-        <h4>Comparing the three desriptors by average precision-recall plots</h4>
+        <h4>Comparing the three descriptors by average precision-recall plots</h4>
             Here, by average we mean that we calculate the precision and recall values for
             each and all of the input sketches and then calculate the average performance.
             We provide the graphs both for over all and for each sketch input category.
             <ul>
-                    <li>SIFT <br>
-                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve.png">
-                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_chairs.png">
-                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_shoes.png">
-                    </li>
-                    <li>HOG <br>
+                    <li><b>HOG</b><br>
+                    Window size: 64 x 64 <br>
                         <img style="width: 33%;" alt="" src="hog64_precision_recall.png">
                         <img style="width: 33%;" alt="" src="hog64_precision_recall_chairs.png">
                         <img style="width: 33%;" alt="" src="hog64_precision_recall_shoes.png">
                     </li>
-                    <li>Hu Moments <br>
+                    <li><b>SIFT </b><br>
+                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve.png">
+                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_chairs.png">
+                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_shoes.png">
+                    </li>
+                    <li><b>Hu Moments</b><br>
                         <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hu2.png">
                         <img style="width: 33%;" alt="" src="precision_recall_plot_chairs_hu2.png">
                         <img style="width: 33%;" alt="" src="precision_recall_plot_shoes_hu2.png">
                     </li>
             </ul>
-            Analysis:
+            <b> Analysis: </b>
+            The above results are calculated for k values of 5,10,20,30,90,100,110,170,180,190 and 195. 
+            For k = 10, the average precision of HOG is 0.928, SIFT is 0.541 and Hu Moments is 0.6. 
+            For the category of shoes, avergare precision at k=10 for HOG is 
+            Overall, HOG performs better in terms of both precision and recall for both category of images.
+        
         <br>
 
 
         <h4>Selecting Parameters</h4>
             Here, we show the precision and recall values for different window sizes for HOG.
             <ul>
-                    <li>Window size = 16<br>
+                    <li> <b> Window size = 16 x 16 </b> <br>
                         <img style="width: 33%;" alt="" src="hog16_precision_recall_curve.png">
                         <img style="width: 33%;" alt="" src="hog16_precision_recall_curve_chairs.png">
                         <img style="width: 33%;" alt="" src="hog16_precision_recall_curve_shoes.png">
                     </li>
-                    <li>Window size = 32<br>
+                    <li> <b> Window size = 32 x 32 </b> <br>
                         <img style="width: 33%;" alt="" src="hog32_precision_recall_curve.png">
                         <img style="width: 33%;" alt="" src="hog32_precision_recall_curve_chairs.png">
                         <img style="width: 33%;" alt="" src="hog32_precision_recall_curve_shoes.png">
                     </li>
-                    <li>Window size = 64<br>
-                        <img style="width: 33%;" alt="" src="hog64_precision_recall.png">
-                        <img style="width: 33%;" alt="" src="hog64_precision_recall_chairs.png">
-                        <img style="width: 33%;" alt="" src="hog64_precision_recall_shoes.png">
-                    </li>
-                    <li>Window size = 128<br>
+                    <li> <b>Window size = 128 x 128</b> <br>
                         <img style="width: 33%;" alt="" src="hog128_precision_recall.png">
                         <img style="width: 33%;" alt="" src="hog128_precision_recall_chairs.png">
                         <img style="width: 33%;" alt="" src="hog128_precision_recall_shoes.png">

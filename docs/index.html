@@ -75,7 +75,7 @@
 
 
         <br><br>
- 
+
         <h3 style="color: #3366CC">Introduction</h3>
 
         The traditional text-based image retrieval systems are limited as with growing database of images it is difficult and unrealistic to annotate all the images for text-based search. Using sketch to retrieve images also alleviates the need for generating accurate captions for existing images, which becomes a complex natural language processing problem as the description is required to be more specific and detailed. Sketches have a much greater potential to describe the content and exact details of the image than plain text and are a more direct way of expressing human thoughts than text abstraction.<br>
@@ -143,16 +143,16 @@
             implies that the feature vector is of size 3*3*36 = 324. A 256 x 256 = 65,536 image is 
             now represented with a feature vector of size 324.          
             <br>
-            Calculating histogram over a patch not only makes the representation 
-            compact, but also makes it robust to noise in gradients. Operating on 
-            local windows makes the descriptor invariant to geometric and 
+            Calculating histogram over a patch not only makes the representation
+            compact, but also makes it robust to noise in gradients. Operating on
+            local windows makes the descriptor invariant to geometric and
             photometric transformations.
 
             <b> <li> SIFT  </li> </b>
             <b> <li> Hu Moments </li> </b>
             Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation.
             We consider this a global shape feature descriptor.
-            <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation. 
+            <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation.
 
         </ol>
         We used OpenCV's implementation of above descriptors.
@@ -165,8 +165,8 @@
             we extract features from the input sketch image and form a feature vector.
             <li><b>Similarity comparison</b></li>
             <ul>
-                <li><b> L2 Norm</b>  - L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.</li> 
-                <li><b>  L1 Norm</b> - L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG. </li>  
+                <li><b> L2 Norm</b>  - L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.</li>
+                <li><b>  L1 Norm</b> - L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG. </li>
 
             </ul>
 
@@ -188,7 +188,7 @@
             <li><b>Output of preprocessing</b> - 400 feature vectors for each image</li>
             <li><b>Input for Retrieval phase</b> - 200 sketches of shoes and 200 sketches of chairs as query sketches</li>
             <li><b>Output of Retrieval phase</b> - Top k similar images for each query sketch</li>
-        
+
         <h4>Evaluation metrics</h4>
                 We will be evaluating the performance of our system (different descriptors and different parameters) using the
                 below metrics.
@@ -237,17 +237,17 @@
             each and all of the input sketches and then calculate the average performance.
             We provide the graphs both for over all and for each sketch input category.
             <ul>
-                    <li> <b>SIFT </b> <br>
+                    <li><b>SIFT </b><br>
                         <img style="width: 33%;" alt="" src="sift_precision_recall_curve.png">
                         <img style="width: 33%;" alt="" src="sift_precision_recall_curve_chairs.png">
                         <img style="width: 33%;" alt="" src="sift_precision_recall_curve_shoes.png">
                     </li>
-                    <li> <b>HOG</b><br>
+                    <li><b>HOG</b><br>
                         <img style="width: 33%;" alt="" src="hog64_precision_recall.png">
                         <img style="width: 33%;" alt="" src="hog64_precision_recall_chairs.png">
                         <img style="width: 33%;" alt="" src="hog64_precision_recall_shoes.png">
                     </li>
-                    <li> <b>Hu Moments</b> <br>
+                    <li><b>Hu Moments</b><br>
                         <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hu2.png">
                         <img style="width: 33%;" alt="" src="precision_recall_plot_chairs_hu2.png">
                         <img style="width: 33%;" alt="" src="precision_recall_plot_shoes_hu2.png">

@@ -153,7 +153,7 @@
             <b> <li> Hu Moments </li> </b>
             Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation.
             We consider this a global shape feature descriptor.
-            <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation. Length of the descripter vector for Hu Moments is 7.
+            <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. One challenge with that is that a lot of the sketches do not have a closed contour. To counter that, we used the dilation + erosion operation to connect the broken lines. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation. Length of the descripter vector for Hu Moments is 7.
 
 
         </ol>

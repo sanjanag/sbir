@@ -75,7 +75,7 @@
 
 
         <br><br>
- 
+
         <h3 style="color: #3366CC">Introduction</h3>
 
         The traditional text-based image retrieval systems are limited as with growing database of images it is difficult and unrealistic to annotate all the images for text-based search. Using sketch to retrieve images also alleviates the need for generating accurate captions for existing images, which becomes a complex natural language processing problem as the description is required to be more specific and detailed. Sketches have a much greater potential to describe the content and exact details of the image than plain text and are a more direct way of expressing human thoughts than text abstraction.<br>
@@ -129,32 +129,32 @@
             information for SBIR as the query images are essentially texture less
             sketches that describe the shape of objects.
             <br>
-            The implementation of descriptor is as follows. 
-            Gradients- magnitude and direction of the image are calculated. The image is 
-            divided into windows of size 64 x 64. [The choice of this window size is described 
-            in the experiments and results section below]. For each window, histogram of gradient 
-            directions is calculated. The histogram is divided into 9 bins(0,20,40..160). A gradient 
-            arrow and 180 degrees opposite to it are considered the same as unsigned gradients 
-            work better than signed gradients. Each pixel contributes the weight(gradient magnitude) 
+            The implementation of descriptor is as follows.
+            Gradients- magnitude and direction of the image are calculated. The image is
+            divided into windows of size 64 x 64. [The choice of this window size is described
+            in the experiments and results section below]. For each window, histogram of gradient
+            directions is calculated. The histogram is divided into 9 bins(0,20,40..160). A gradient
+            arrow and 180 degrees opposite to it are considered the same as unsigned gradients
+            work better than signed gradients. Each pixel contributes the weight(gradient magnitude)
             proportionally to the bins it's angle is falling between.
-            To make the descriptor invariant to changes in illumination and shadowing, the 64 x 64 window is 
-            normalized by considering a block of size 128 x 128 which has 4 64 x 64 windows and 
-            these 4 histograms (1 of each window) of size 9 x 1 are concatenated to a histogram of size 36 x 1. 
-            And, this 128 x 128 block is slided along horizontally by 64 pixels and veritcally by 64 pixels 
-            making it to a total of 3 x 3 positions as the images of shoe dataset are of size 256 x 256. This 
-            implies that the feature vector is of size 3*3*36 = 324. A 256 x 256 = 65,536 image is 
-            now represented with a feature vector of size 324.          
+            To make the descriptor invariant to changes in illumination and shadowing, the 64 x 64 window is
+            normalized by considering a block of size 128 x 128 which has 4 64 x 64 windows and
+            these 4 histograms (1 of each window) of size 9 x 1 are concatenated to a histogram of size 36 x 1.
+            And, this 128 x 128 block is slided along horizontally by 64 pixels and veritcally by 64 pixels
+            making it to a total of 3 x 3 positions as the images of shoe dataset are of size 256 x 256. This
+            implies that the feature vector is of size 3*3*36 = 324. A 256 x 256 = 65,536 image is
+            now represented with a feature vector of size 324.
             <br>
-            Calculating histogram over a patch not only makes the representation 
-            compact, but also makes it robust to noise in gradients. Operating on 
-            local windows makes the descriptor invariant to geometric and 
+            Calculating histogram over a patch not only makes the representation
+            compact, but also makes it robust to noise in gradients. Operating on
+            local windows makes the descriptor invariant to geometric and
             photometric transformations.
 
             <b> <li> SIFT  </li> </b>
             <b> <li> Hu Moments </li> </b>
             Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation.
             We consider this a global shape feature descriptor.
-            <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation. 
+            <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation.
 
         </ol>
         We used OpenCV's implementation of above descriptors.
@@ -167,8 +167,8 @@
             we extract features from the input sketch image and form a feature vector.
             <li><b>Similarity comparison</b></li>
             <ul>
-                <li><b> L2 Norm</b>  - L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.</li> 
-                <li><b>  L1 Norm</b> - L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG. </li>  
+                <li><b> L2 Norm</b>  - L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.</li>
+                <li><b>  L1 Norm</b> - L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG. </li>
 
             </ul>
 
@@ -185,12 +185,12 @@
 
         <h4>Experimental Setup</h4>
             <li><b>Dataset Used: <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">The Shoe Dataset </a></b><br>
-                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of different scales and orientations. We first start with a subset of this dataset which has 200 images of shoes and chairs each and 200 sketches of shoes and chairs each.
+                This dataset is organized into two categories of photos and sketches - shoe and chair. Images and sketches are of different scales and orientations. We first start with a subset of this dataset which has 200 images of shoes and chairs each and 200 sketches of shoes and chairs each.
             <li><b>Input for preprocessing</b> - 200 images of shoes and 200 images of chairs</li>
             <li><b>Output of preprocessing</b> - 400 feature vectors for each image</li>
             <li><b>Input for Retrieval phase</b> - 200 sketches of shoes and 200 sketches of chairs as query sketches</li>
             <li><b>Output of Retrieval phase</b> - Top k similar images for each query sketch</li>
-        
+
         <h4>Evaluation metrics</h4>
                 We will be evaluating the performance of our system (different descriptors and different parameters) using the
                 below metrics.
@@ -262,22 +262,22 @@
         <h4>Selecting Parameters</h4>
             Here, we show the precision and recall values for different window sizes for HOG.
             <ul>
-                    <li>Window size = 16<br>
+                    <li> <b> Window size = 16 x 16 </b> <br>
                         <img style="width: 33%;" alt="" src="hog16_precision_recall_curve.png">
                         <img style="width: 33%;" alt="" src="hog16_precision_recall_curve_chairs.png">
                         <img style="width: 33%;" alt="" src="hog16_precision_recall_curve_shoes.png">
                     </li>
-                    <li>Window size = 32<br>
+                    <li> <b> Window size = 32 x 32 </b> <br>
                         <img style="width: 33%;" alt="" src="hog32_precision_recall_curve.png">
                         <img style="width: 33%;" alt="" src="hog32_precision_recall_curve_chairs.png">
                         <img style="width: 33%;" alt="" src="hog32_precision_recall_curve_shoes.png">
                     </li>
-                    <li>Window size = 64<br>
+                    <li> <b> Window size = 64 x 64 </b> <br>
                         <img style="width: 33%;" alt="" src="hog64_precision_recall.png">
                         <img style="width: 33%;" alt="" src="hog64_precision_recall_chairs.png">
                         <img style="width: 33%;" alt="" src="hog64_precision_recall_shoes.png">
                     </li>
-                    <li>Window size = 128<br>
+                    <li> <b>Window size = 128 x 128</b> <br>
                         <img style="width: 33%;" alt="" src="hog128_precision_recall.png">
                         <img style="width: 33%;" alt="" src="hog128_precision_recall_chairs.png">
                         <img style="width: 33%;" alt="" src="hog128_precision_recall_shoes.png">

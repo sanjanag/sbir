@@ -45,7 +45,7 @@
 
         <h4> <a href="proposal.html"> Proposal </a></h4>
         <!-- Introduction -->
-        <h3>Abstract</h3>
+        <h3 style="color: #3366CC">Abstract</h3>
 
 
 
@@ -66,7 +66,7 @@
 
 
 
-        <h3>Teaser Figure</h3>
+        <h3 style="color: #3366CC">Teaser Figure</h3>
         Sample output from our application:<br>
 
         &emsp;&emsp;&emsp;&emsp;&emsp;
@@ -75,8 +75,8 @@
 
 
         <br><br>
-
-        <h3>Introduction</h3>
+ 
+        <h3 style="color: #3366CC">Introduction</h3>
 
         The traditional text-based image retrieval systems are limited as with growing database of images it is difficult and unrealistic to annotate all the images for text-based search. Using sketch to retrieve images also alleviates the need for generating accurate captions for existing images, which becomes a complex natural language processing problem as the description is required to be more specific and detailed. Sketches have a much greater potential to describe the content and exact details of the image than plain text and are a more direct way of expressing human thoughts than text abstraction.<br>
         Sketch based image retrieval systems have many applications in daily life like Medical diagnosis, digital library, search engines, crime prevention, photo sharing sites, geographical information, and sensing remote systems. With the increasing use of touch screen devices, Sketch-Based Image Retrieval (SBIR) has relevant applications in e-commerce platforms also. <br>
@@ -85,7 +85,7 @@
 
 
         <!-- Approach -->
-        <h3>Approach</h3>
+        <h3 style="color: #3366CC">Approach</h3>
         In our approach, we aim to tackle the following aspects of sketch-image
         differences:
         <ul>
@@ -119,7 +119,8 @@
         are generally composed of strokes which are mostly edges, it is
         intuitive to compare edge maps of images with sketches. This also addresses
         the simplification sub-aspect of the abstraction gap.
-        Some of the feature extraction methods we have tried are described below.
+        <br>
+        Some of the feature extraction methods we tried are described below. <br>
         <ol>
             <b> <li>  HOG - Histogram of Oriented Gradients  </li> </b>
             HOG encodes the distribution of directions
@@ -127,27 +128,36 @@
             capture the local shape within an image which is a crucial
             information for SBIR as the query images are essentially texture less
             sketches that describe the shape of objects.
+            <br>
+            The implementation of descriptor is as follows. 
+            Gradients- magnitude and direction of the image are calculated. The image is 
+            divided into windows of size 64 x 64. [The choice of this window size is described 
+            in the experiments and results section below]. For each window, histogram of gradient 
+            directions is calculated. The histogram is divided into 9 bins(0,20,40..160). A gradient 
+            arrow and 180 degrees opposite to it are considered the same as unsigned gradients 
+            work better than signed gradients. Each pixel contributes the weight(gradient magnitude) 
+            proportionally to the bins it's angle is falling between.
+            To make the descriptor invariant to changes in illumination and shadowing, the 64 x 64 window is 
+            normalized by considering a block of size 128 x 128 which has 4 64 x 64 windows and 
+            these 4 histograms (1 of each window) of size 9 x 1 are concatenated to a histogram of size 36 x 1. 
+            And, this 128 x 128 block is slided along horizontally by 64 pixels and veritcally by 64 pixels 
+            making it to a total of 3 x 3 positions as the images of shoe dataset are of size 256 x 256. This 
+            implies that the feature vector is of size 3*3*36 = 324. A 256 x 256 = 65,536 image is 
+            now represented with a feature vector of size 324.          
+            <br>
+            Calculating histogram over a patch not only makes the representation 
+            compact, but also makes it robust to noise in gradients. Operating on 
+            local windows makes the descriptor invariant to geometric and 
+            photometric transformations.
 
-Not only is the representation more compact, calculating a histogram over a patch makes this represenation more robust to noise. Individual graidents may have noise, but a histogram over 8×8 patch makes the representation much less sensitive to noise.
-
-8×8 cells in a photo of a pedestrian scaled to 64×128 are big enough to capture interesting features
-The histogram is essentially a vector ( or an array ) of 9 bins ( numbers ) corresponding to angles 0, 20, 40, 60 … 160.
-
-the angles are between 0 and 180 degrees instead of 0 to 360 degrees. These are called “unsigned” gradients because a gradient and it’s negative are represented by the same numbers. In other words, a gradient arrow and the one 180 degrees opposite to it are considered the same as unsigned gradients work better than signed gradients
-
-if the angle is falling between 2 bins, it is distributed proportional to into both the bins.
-Each pixel contributes the weight(gradient magnitude) proportionally to the bins it's angle is falling between.
-
-to make it invariant to scale and lightning conditions, the 16*16 block is normalized by considering a window of size 32*32 which has 4 16*16 patches and these 4 hists of 9*1 are concatenated to a hist of size 36*1. And, this 32*32 window is moved along horizontally by 16 pixels and veritcally by 16 pixels making it to a total of 15*15 positions => 15*15*36= 8100 is the size of the feature vector. 65,536 => 8100
-
-
-            <b> <li> SIFT  </li> </b> The scale-invariant feature transform (SIFT), is a local feature descriptor. By searching for blobs at multiple scales and positions, the SIFT detector is invariant (or, more accurately, covariant) to translation, rotations, and re scaling of the image. We use Euclidean distance measure to compute similarity between sketches and images in database.
+            <b> <li> SIFT  </li> </b>
             <b> <li> Hu Moments </li> </b>
             Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation.
             We consider this a global shape feature descriptor.
             <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation. 
 
         </ol>
+        We used OpenCV's implementation of above descriptors.
         <h4>Retrieval Phase</h4>
         This is the phase in which the query image is processed to retrieve
         similar images.
@@ -171,22 +181,16 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
         </ul>
         <br>
 
-        <h3>Experiments and Results</h3>
+        <h3 style="color: #3366CC">Experiments and Results</h3>
 
         <h4>Experimental Setup</h4>
-            <li><b>Dataset Used: </b><b>The Shoe Dataset</b><br>
-                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of the scale and orientation.<br>
-                <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html</a>
-                <br>
-                We first start with the two category dataset <b>Shoe</b> for
-                    our problem, to test our features.</li>
-            <li><b>Input</b><br>
-                200 images of shoes and 200 images of chairs.
-
-            <li><b>Output</b><br>
-                200 sketches of shoes and 200 sketches of chairs as query sketches.
-            </li>
-        <br>
+            <li><b>Dataset Used: <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">The Shoe Dataset </a></b><br>
+                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of different scales and orientations. We first start with a subset of this dataset which has 200 images of shoes and chairs each and 200 sketches of shoes and chairs each.
+            <li><b>Input for preprocessing</b> - 200 images of shoes and 200 images of chairs</li>
+            <li><b>Output of preprocessing</b> - 400 feature vectors for each image</li>
+            <li><b>Input for Retrieval phase</b> - 200 sketches of shoes and 200 sketches of chairs as query sketches</li>
+            <li><b>Output of Retrieval phase</b> - Top k similar images for each query sketch</li>
+        
         <h4>Evaluation metrics</h4>
                 We will be evaluating the performance of our system (different descriptors and different parameters) using the
                 below metrics.
@@ -283,13 +287,15 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
         <br>
 
         <br>
-        <h3>Qualitative results</h3>
+
+        <h3 style="color: #3366CC">Qualitative results</h3>
         Success Cases
         <br>
         Failures
 
 
-        <h3>Conclusion and future work</h3>
+
+        <h3 style="color: #3366CC">Conclusion and future work</h3>
         We will be evaluating the performance of our current implementation of framework
         and feature extractors (HOG, SIFT and Hu Moments)
         with <a href="http://sketchy.eye.gatech.edu/explore/banana.html"> The Sketchy Database </a>
@@ -302,13 +308,13 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
         feature descriptor HOG is not rotation-scale invariant, we will try cascading the
         weak but rotation-scale invariant descriptors- SIFT, Hu Moments with HOG to improve
         performance with The Sketchy Database. Along with this, we may try options like
-        query expansion discussed in the class, training ML/DL models like SVM/CNN with some/all of these features
+        query expansion discussed in the class, training SVM/CNN models with some/all of these features
 
         </li>
 
         <br><br>
 
-        <h3>References/Citations</h3>
+        <h3 style="color: #3366CC">References/Citations</h3>
         [1] Li, Y. & Li, W. Machine Vision and Applications (2018) 29:
         1083.
         https://doi.org/10.1007/s00138-018-0953-8

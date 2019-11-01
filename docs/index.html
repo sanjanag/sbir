@@ -47,7 +47,7 @@
         <!-- Introduction -->
         <h3>Abstract</h3>
 
- 
+
 
         Sketch based image retrieval systems have many applications in daily life like
         Medical diagnosis, digital library, search engines, crime prevention,
@@ -56,21 +56,19 @@
         as with growing database of images it is difficult and unrealistic to
         annotate all the images for text-based search.
         <br>
-        In order to tackle this problem, we build a pipeline combining preprocessing 
-        the images (gray scaling edge extraction) and extracting various feature descriptors
-        (SIFT, HOG, and Hu Moments)
+        In order to tackle this problem, we build a pipeline combining preprocessing the images (gray scaling edge extraction) and extracting various feature descriptors (SIFT, HOG, and Hu Moments)
         from the images. Then, we take the extracted features from a input sketch and fetch the most similar k images from the database based on distance metrics corresponding to each type of feature descriptors.
         <br>
-        Based on the test dataset which contains images from two different categories split in 50/50 way, 
+        Based on the test dataset which contains images from two different categories split in 50/50 way,
         we were able to achieve above baseline (50%) accuracy from all three descriptors that we implemented. Our next step will be to try to tweak the parameters of these feature
-        extractors and to try out strategies to combine the features in order to improve the 
+        extractors and to try out strategies to combine the features in order to improve the
         overall performance.
 
 
 
         <h3>Teaser Figure</h3>
         Sample output from our application:<br>
-        
+
         &emsp;&emsp;&emsp;&emsp;&emsp;
         <img style="height: 120px;" alt="" src="chair16.png">
         <img style="height: 300px;" alt="" src="hog_chair16.png">
@@ -112,38 +110,40 @@
         In this phase, we pre-process the dataset to extract features. For
         every image in the dataset, we perform the following steps.
         <h5>Feature/Edge extraction</h5>
-        Convert the image to its gray intensity representation. Extract local edge or global shape features 
+        Convert the image to its gray intensity representation. Extract local edge or global shape features
         and encode them in a feature vector using representations like histogram.
-        The histogram based features are efficient for similarity comparison 
+        The histogram based features are efficient for similarity comparison
         and they can also tolerate random distortions in the sketches
         due to the grid division scheme in feature extraction.
         Edge/shape extraction addresses the visual cue imbalance. Since the sketches
         are generally composed of strokes which are mostly edges, it is
         intuitive to compare edge maps of images with sketches. This also addresses
-        the simplification sub-aspect of the abstraction gap. 
+        the simplification sub-aspect of the abstraction gap.
         Some of the feature extraction methods we have tried are described below.
         <ol>
             <b> <li>  HOG - Histogram of Oriented Gradients  </li> </b>
-            HOG encodes the distribution of directions 
-            of gradients (oriented gradients) as features. These features 
-            capture the local shape within an image which is a crucial 
+            HOG encodes the distribution of directions
+            of gradients (oriented gradients) as features. These features
+            capture the local shape within an image which is a crucial
             information for SBIR as the query images are essentially texture less
-            sketches that describe the shape of objects. 
+            sketches that describe the shape of objects.
 
 Not only is the representation more compact, calculating a histogram over a patch makes this represenation more robust to noise. Individual graidents may have noise, but a histogram over 8×8 patch makes the representation much less sensitive to noise.
 
-8×8 cells in a photo of a pedestrian scaled to 64×128 are big enough to capture interesting features 
+8×8 cells in a photo of a pedestrian scaled to 64×128 are big enough to capture interesting features
 The histogram is essentially a vector ( or an array ) of 9 bins ( numbers ) corresponding to angles 0, 20, 40, 60 … 160.
 
 the angles are between 0 and 180 degrees instead of 0 to 360 degrees. These are called “unsigned” gradients because a gradient and it’s negative are represented by the same numbers. In other words, a gradient arrow and the one 180 degrees opposite to it are considered the same as unsigned gradients work better than signed gradients
 
-if the angle is falling between 2 bins, it is distributed proportional to into both the bins. 
+if the angle is falling between 2 bins, it is distributed proportional to into both the bins.
 Each pixel contributes the weight(gradient magnitude) proportionally to the bins it's angle is falling between.
 
 to make it invariant to scale and lightning conditions, the 16*16 block is normalized by considering a window of size 32*32 which has 4 16*16 patches and these 4 hists of 9*1 are concatenated to a hist of size 36*1. And, this 32*32 window is moved along horizontally by 16 pixels and veritcally by 16 pixels making it to a total of 15*15 positions => 15*15*36= 8100 is the size of the feature vector. 65,536 => 8100
-            <b> <li> SIFT  </li> </b>
+
+
+            <b> <li> SIFT  </li> </b> The scale-invariant feature transform (SIFT), is a local feature descriptor. By searching for blobs at multiple scales and positions, the SIFT detector is invariant (or, more accurately, covariant) to translation, rotations, and re scaling of the image. We use Euclidean distance measure to compute similarity between sketches and images in database.
             <b> <li> Hu Moments </li> </b>
-            Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation. 
+            Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation.
             We consider this a global shape feature descriptor.
         </ol>
         <h4>Retrieval Phase</h4>
@@ -155,14 +155,14 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
             we extract features from the input sketch image and form a feature vector.
             <li><b>Similarity comparison</b></li>
             <ol>
-                <b> <li> L2 Norm </li> </b> 
+                <b> <li> L2 Norm </li> </b>
                 L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.
                 <b> <li> L1 Norm </li> </b>
                 L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG.
-                <br> <br> 
+                <br> <br>
                 We chose the distance metrics as per [5] which says that Manhattan distance (L1 norm) may be
-                preferable to Euclidean distance (L2 norm) for the case of high dimensional data. As described in 
-                the approach section above, HOG features' dimensions are significantly higher than that of SIFT and Hu Moments.  
+                preferable to Euclidean distance (L2 norm) for the case of high dimensional data. As described in
+                the approach section above, HOG features' dimensions are significantly higher than that of SIFT and Hu Moments.
 
             </ol>
          <br>
@@ -172,10 +172,10 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
         <br>
 
         <h3>Experiments and Results</h3>
-        
+
         <h4>Experimental Setup</h4>
             <li><b>Dataset Used: </b><b>The Shoe Dataset</b><br>
-                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of the scale and orientation.<br> 
+                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of the scale and orientation.<br>
                 <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html</a>
                 <br>
                 We first start with the two category dataset <b>Shoe</b> for
@@ -226,12 +226,12 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
                 </ul>
         <br>
         <h4>Baseline</h4>
-            Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.           
-            
+            Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.
+
         <br>
 
         <h4>Comparing the three desriptors by average precision-recall plots</h4>
-            Here, by average we mean that we calculate the precision and recall values for 
+            Here, by average we mean that we calculate the precision and recall values for
             each and all of the input sketches and then calculate the average performance.
             We provide the graphs both for over all and for each sketch input category.
             <ul>
@@ -250,14 +250,14 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
                         <img style="width: 33%;" alt="" src="precision_recall_plot_chairs_hu2.png">
                         <img style="width: 33%;" alt="" src="precision_recall_plot_shoes_hu2.png">
                     </li>
-            </ul>    
+            </ul>
             Analysis:
         <br>
 
 
         <h4>Selecting Parameters</h4>
-            Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.           
-            
+            Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.
+
         <br>
 
         <br>
@@ -266,18 +266,18 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
 
 
         <h3>Conclusion and future work</h3>
-        We will be evaluating the performance of our current implementation of framework 
+        We will be evaluating the performance of our current implementation of framework
         and feature extractors (HOG, SIFT and Hu Moments)
         with <a href="http://sketchy.eye.gatech.edu/explore/banana.html"> The Sketchy Database </a>
         which is the first large-scale collection of sketch-photo pairs. The
         dataset has 125 categories of objects with 100 images
-        per category and 75,471 sketches of 12,500 objects. Unlike the shoe dataset, 
-        this database is benchmarked for fine-grained sketch-based image retrieval 
-        that is used to embed images and sketches of different scales and orientations 
-        in the same feature space using convolutional networks. Since the highly performing 
+        per category and 75,471 sketches of 12,500 objects. Unlike the shoe dataset,
+        this database is benchmarked for fine-grained sketch-based image retrieval
+        that is used to embed images and sketches of different scales and orientations
+        in the same feature space using convolutional networks. Since the highly performing
         feature descriptor HOG is not rotation-scale invariant, we will try cascading the
-        weak but rotation-scale invariant descriptors- SIFT, Hu Moments with HOG to improve 
-        performance with The Sketchy Database. Along with this, we may try options like 
+        weak but rotation-scale invariant descriptors- SIFT, Hu Moments with HOG to improve
+        performance with The Sketchy Database. Along with this, we may try options like
         query expansion discussed in the class, training ML/DL models like SVM/CNN with some/all of these features
 
         </li>
@@ -300,9 +300,9 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
         Proceedings of the 5th ACM on International Conference on
         Multimedia
         Retrieval-ICMR '15, pp. 667-668 (2015).
-        <br>[5] Aggarwal C.C., Hinneburg A., Keim D.A. (2001) On the 
-        Surprising Behavior of Distance Metrics in High Dimensional Space. 
-        In: Van den Bussche J., Vianu V. (eds) Database Theory — ICDT 2001. ICDT 2001. 
+        <br>[5] Aggarwal C.C., Hinneburg A., Keim D.A. (2001) On the
+        Surprising Behavior of Distance Metrics in High Dimensional Space.
+        In: Van den Bussche J., Vianu V. (eds) Database Theory — ICDT 2001. ICDT 2001.
         Lecture Notes in Computer Science, vol 1973. Springer, Berlin, Heidelberg
         <br><br>
 

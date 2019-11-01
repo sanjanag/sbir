@@ -172,16 +172,12 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
         <h3 style="color: #3366CC">Experiments and Results</h3>
 
         <h4>Experimental Setup</h4>
-            <li><b>Dataset Used: </b><b>The Shoe Dataset</b><br>
-                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of the scale and orientation.<br>
-                <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html</a>
-                <br>
-                We first start with the two category dataset <b>Shoe</b> for
-                    our problem, to test our features.</li>
-            <li><b>Input for preprocessing</b> - 
-                200 images of shoes and 200 images of chairs.</li>
-            <li><b>Query</b> - 200 sketches of shoes and 200 sketches of chairs as query sketches.</li>
-            <li><b>Output</b> - Top k similar images for each query sketch.</li>
+            <li><b>Dataset Used: <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">The Shoe Dataset </a></b><br>
+                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of different scales and orientations. We first start with a subset of this dataset which has 200 images of shoes and chairs each and 200 sketches of shoes and chairs each.
+            <li><b>Input for preprocessing</b> - 200 images of shoes and 200 images of chairs</li>
+            <li><b>Output of preprocessing</b> - 400 feature vectors for each image</li>
+            <li><b>Input for Retrieval phase</b> - 200 sketches of shoes and 200 sketches of chairs as query sketches</li>
+            <li><b>Output of Retrieval phase</b> - Top k similar images for each query sketch</li>
         
         <h4>Evaluation metrics</h4>
                 We will be evaluating the performance of our system (different descriptors and different parameters) using the

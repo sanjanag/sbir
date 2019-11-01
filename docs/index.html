@@ -47,7 +47,7 @@
         <!-- Introduction -->
         <h3>Abstract</h3>
 
- 
+
 
         Sketch based image retrieval systems have many applications in daily life like
         Medical diagnosis, digital library, search engines, crime prevention,
@@ -56,21 +56,19 @@
         as with growing database of images it is difficult and unrealistic to
         annotate all the images for text-based search.
         <br>
-        In order to tackle this problem, we build a pipeline combining preprocessing 
-        the images (gray scaling edge extraction) and extracting various feature descriptors
-        (SIFT, HOG, and Hu Moments)
+        In order to tackle this problem, we build a pipeline combining preprocessing the images (gray scaling edge extraction) and extracting various feature descriptors (SIFT, HOG, and Hu Moments)
         from the images. Then, we take the extracted features from a input sketch and fetch the most similar k images from the database based on distance metrics corresponding to each type of feature descriptors.
         <br>
-        Based on the test dataset which contains images from two different categories split in 50/50 way, 
+        Based on the test dataset which contains images from two different categories split in 50/50 way,
         we were able to achieve above baseline (50%) accuracy from all three descriptors that we implemented. Our next step will be to try to tweak the parameters of these feature
-        extractors and to try out strategies to combine the features in order to improve the 
+        extractors and to try out strategies to combine the features in order to improve the
         overall performance.
 
 
 
         <h3>Teaser Figure</h3>
         Sample output from our application:<br>
-        
+
         &emsp;&emsp;&emsp;&emsp;&emsp;
         <img style="height: 120px;" alt="" src="chair16.png">
         <img style="height: 300px;" alt="" src="hog_chair16.png">
@@ -112,9 +110,9 @@
         In this phase, we pre-process the dataset to extract features. For
         every image in the dataset, we perform the following steps.
         <h5>Feature/Edge extraction</h5>
-        Convert the image to its gray intensity representation. Extract local edge or global shape features 
+        Convert the image to its gray intensity representation. Extract local edge or global shape features
         and encode them in a feature vector using representations like histogram.
-        The histogram based features are efficient for similarity comparison 
+        The histogram based features are efficient for similarity comparison
         and they can also tolerate random distortions in the sketches
         due to the grid division scheme in feature extraction.
         Edge/shape extraction addresses the visual cue imbalance. Since the sketches
@@ -125,9 +123,9 @@
         Some of the feature extraction methods we tried are described below. <br>
         <ol>
             <b> <li>  HOG - Histogram of Oriented Gradients  </li> </b>
-            HOG encodes the distribution of directions 
-            of gradients (oriented gradients) as features. These features 
-            capture the local shape within an image which is a crucial 
+            HOG encodes the distribution of directions
+            of gradients (oriented gradients) as features. These features
+            capture the local shape within an image which is a crucial
             information for SBIR as the query images are essentially texture less
             sketches that describe the shape of objects.
             <br>
@@ -154,7 +152,7 @@
 
             <b> <li> SIFT  </li> </b>
             <b> <li> Hu Moments </li> </b>
-            Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation. 
+            Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation.
             We consider this a global shape feature descriptor.
         </ol>
         We used OpenCV's implementation of above descriptors.
@@ -166,17 +164,15 @@
             Similar to the feature extraction step of the pre-processing phase,
             we extract features from the input sketch image and form a feature vector.
             <li><b>Similarity comparison</b></li>
-            <ol>
-                <b> <li> L2 Norm </li> </b> 
-                L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.
-                <b> <li> L1 Norm </li> </b>
-                L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG.
-                <br> <br> 
-                We chose the distance metrics as per [5] which says that Manhattan distance (L1 norm) may be
-                preferable to Euclidean distance (L2 norm) for the case of high dimensional data. As described in 
-                the approach section above, HOG features' dimensions are significantly higher than that of SIFT and Hu Moments.  
+            <ul>
+                <li><b> L2 Norm</b>  - L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.</li> 
+                <li><b>  L1 Norm</b> - L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG. </li>  
 
-            </ol>
+            </ul>
+
+                We chose the distance metrics as per [5] which says that Manhattan distance (L1 norm) may be
+                preferable to Euclidean distance (L2 norm) for the case of high dimensional data. As described in
+                the approach section above, HOG features' dimensions are significantly higher than that of SIFT and Hu Moments.
          <br>
             The top 'k' similar images from the above step are retrieved as
             output.
@@ -184,10 +180,10 @@
         <br>
 
         <h3>Experiments and Results</h3>
-        
+
         <h4>Experimental Setup</h4>
             <li><b>Dataset Used: </b><b>The Shoe Dataset</b><br>
-                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of the scale and orientation.<br> 
+                This dataset is organized into two categories of photos and sketches - shoe and chair and has a total of 1,432 sketch-photo pairs. Images and sketches are of the scale and orientation.<br>
                 <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html</a>
                 <br>
                 We first start with the two category dataset <b>Shoe</b> for
@@ -238,38 +234,60 @@
                 </ul>
         <br>
         <h4>Baseline</h4>
-            Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.           
-            
+            Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.
+
         <br>
 
         <h4>Comparing the three desriptors by average precision-recall plots</h4>
-            Here, by average we mean that we calculate the precision and recall values for 
+            Here, by average we mean that we calculate the precision and recall values for
             each and all of the input sketches and then calculate the average performance.
             We provide the graphs both for over all and for each sketch input category.
             <ul>
                     <li>SIFT <br>
-                        <img style="height: 250px;" alt="" src="sift_precision_recall_curve.png">
-                        <img style="height: 250px;" alt="" src="sift_precision_recall_curve_chairs.png">
-                        <img style="height: 250px;" alt="" src="sift_precision_recall_curve_shoes.png">
+                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve.png">
+                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_chairs.png">
+                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_shoes.png">
                     </li>
                     <li>HOG <br>
-                        <img style="height: 250px;" alt="" src="hog64_precision_recall.png">
-                        <img style="height: 250px;" alt="" src="hog64_precision_recall_chairs.png">
-                        <img style="height: 250px;" alt="" src="hog64_precision_recall_shoes.png">
+                        <img style="width: 33%;" alt="" src="hog64_precision_recall.png">
+                        <img style="width: 33%;" alt="" src="hog64_precision_recall_chairs.png">
+                        <img style="width: 33%;" alt="" src="hog64_precision_recall_shoes.png">
                     </li>
                     <li>Hu Moments <br>
-                        <img style="height: 260px;" alt="" src="precision_recall_plot_overall_hu2.png">
-                        <img style="height: 260px;" alt="" src="precision_recall_plot_chairs_hu2.png">
-                        <img style="height: 260px;" alt="" src="precision_recall_plot_shoes_hu2.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hu2.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_chairs_hu2.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_shoes_hu2.png">
                     </li>
-            </ul>    
+            </ul>
             Analysis:
         <br>
 
 
         <h4>Selecting Parameters</h4>
-            Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.           
-            
+            Here, we show the precision and recall values for different window sizes for HOG.
+            <ul>
+                    <li>Window size = 16<br>
+                        <img style="width: 33%;" alt="" src="hog16_precision_recall_curve.png">
+                        <img style="width: 33%;" alt="" src="hog16_precision_recall_curve_chairs.png">
+                        <img style="width: 33%;" alt="" src="hog16_precision_recall_curve_shoes.png">
+                    </li>
+                    <li>Window size = 32<br>
+                        <img style="width: 33%;" alt="" src="hog32_precision_recall_curve.png">
+                        <img style="width: 33%;" alt="" src="hog32_precision_recall_curve_chairs.png">
+                        <img style="width: 33%;" alt="" src="hog32_precision_recall_curve_shoes.png">
+                    </li>
+                    <li>Window size = 64<br>
+                        <img style="width: 33%;" alt="" src="hog64_precision_recall.png">
+                        <img style="width: 33%;" alt="" src="hog64_precision_recall_chairs.png">
+                        <img style="width: 33%;" alt="" src="hog64_precision_recall_shoes.png">
+                    </li>
+                    <li>Window size = 128<br>
+                        <img style="width: 33%;" alt="" src="hog128_precision_recall.png">
+                        <img style="width: 33%;" alt="" src="hog128_precision_recall_chairs.png">
+                        <img style="width: 33%;" alt="" src="hog128_precision_recall_shoes.png">
+                    </li>
+            </ul>
+
         <br>
 
         <br>
@@ -278,18 +296,18 @@
 
 
         <h3>Conclusion and future work</h3>
-        We will be evaluating the performance of our current implementation of framework 
+        We will be evaluating the performance of our current implementation of framework
         and feature extractors (HOG, SIFT and Hu Moments)
         with <a href="http://sketchy.eye.gatech.edu/explore/banana.html"> The Sketchy Database </a>
         which is the first large-scale collection of sketch-photo pairs. The
         dataset has 125 categories of objects with 100 images
-        per category and 75,471 sketches of 12,500 objects. Unlike the shoe dataset, 
-        this database is benchmarked for fine-grained sketch-based image retrieval 
-        that is used to embed images and sketches of different scales and orientations 
-        in the same feature space using convolutional networks. Since the highly performing 
+        per category and 75,471 sketches of 12,500 objects. Unlike the shoe dataset,
+        this database is benchmarked for fine-grained sketch-based image retrieval
+        that is used to embed images and sketches of different scales and orientations
+        in the same feature space using convolutional networks. Since the highly performing
         feature descriptor HOG is not rotation-scale invariant, we will try cascading the
-        weak but rotation-scale invariant descriptors- SIFT, Hu Moments with HOG to improve 
-        performance with The Sketchy Database. Along with this, we may try options like 
+        weak but rotation-scale invariant descriptors- SIFT, Hu Moments with HOG to improve
+        performance with The Sketchy Database. Along with this, we may try options like
         query expansion discussed in the class, training ML/DL models like SVM/CNN with some/all of these features
 
         </li>
@@ -312,9 +330,9 @@
         Proceedings of the 5th ACM on International Conference on
         Multimedia
         Retrieval-ICMR '15, pp. 667-668 (2015).
-        <br>[5] Aggarwal C.C., Hinneburg A., Keim D.A. (2001) On the 
-        Surprising Behavior of Distance Metrics in High Dimensional Space. 
-        In: Van den Bussche J., Vianu V. (eds) Database Theory — ICDT 2001. ICDT 2001. 
+        <br>[5] Aggarwal C.C., Hinneburg A., Keim D.A. (2001) On the
+        Surprising Behavior of Distance Metrics in High Dimensional Space.
+        In: Van den Bussche J., Vianu V. (eds) Database Theory — ICDT 2001. ICDT 2001.
         Lecture Notes in Computer Science, vol 1973. Springer, Berlin, Heidelberg
         <br><br>
 

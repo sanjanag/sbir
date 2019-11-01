@@ -154,6 +154,8 @@
             <b> <li> Hu Moments </li> </b>
             Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation.
             We consider this a global shape feature descriptor.
+            <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation. 
+
         </ol>
         We used OpenCV's implementation of above descriptors.
         <h4>Retrieval Phase</h4>
@@ -285,7 +287,11 @@
         <br>
 
         <br>
+
         <h3 style="color: #3366CC">Qualitative results</h3>
+        Success Cases
+        <br>
+        Failures
 
 
 
@@ -328,6 +334,7 @@
         Surprising Behavior of Distance Metrics in High Dimensional Space.
         In: Van den Bussche J., Vianu V. (eds) Database Theory — ICDT 2001. ICDT 2001.
         Lecture Notes in Computer Science, vol 1973. Springer, Berlin, Heidelberg
+        <br>[6] Ming-Kuei Hu, "Visual pattern recognition by moment invariants," in IRE Transactions on Information Theory, vol. 8, no. 2, pp. 179-187, February 1962.
         <br><br>
 
         <hr>

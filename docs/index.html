@@ -133,11 +133,9 @@
             Gradients- magnitude and direction of the image are calculated. The image is 
             divided into windows of size 64 x 64. [The choice of this window size is described 
             in the experiments and results section below]. For each window, histogram of gradient 
-            directions is calculated. The histogram is divided into 9 bins(0,20,40..160). A gradient 
-            arrow and 180 degrees opposite to it are considered the same as unsigned gradients 
-            work better than signed gradients. Each pixel contributes the weight(gradient magnitude) 
-            proportionally to the bins it's angle is falling between.
-            To make the descriptor invariant to changes in illumination and shadowing, the 64 x 64 window is 
+            directions is calculated. The histogram is divided into 9 bins. Each pixel contributes the 
+            weight(gradient magnitude) proportionally to the bins it's angle is falling between.
+            To make the descriptor invariant to changes in illumination, the 64 x 64 window is 
             normalized by considering a block of size 128 x 128 which has 4 64 x 64 windows and 
             these 4 histograms (1 of each window) of size 9 x 1 are concatenated to a histogram of size 36 x 1. 
             And, this 128 x 128 block is slided along horizontally by 64 pixels and veritcally by 64 pixels 

@@ -262,9 +262,11 @@
             recall for both the image categories as it captures the local shape within an image which is
             a crucial information for SBIR as the query images are essentially texture less sketches
             that describe the shape of objects. Due to the absence of significant keypoints in
-            the shoe sketches, performance of SIFT is poor for that category.
+            the shoe sketches, performance of SIFT is poor for that category. Hu Moments is more primitive
+            and is not biased towards any of categories as it captures global shape information. Compared to
+            the other two descriptors, Hu Moments performs better in terms of memory and retrieval time
+            because of the very short feature vector of length 7.
         <br>
-
 
         <h4>Selecting Parameters</h4>
             Here, we show the precision and recall values for different window sizes for HOG.

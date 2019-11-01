@@ -129,21 +129,19 @@
             information for SBIR as the query images are essentially texture less
             sketches that describe the shape of objects.
             <br>
-            The implementation of descriptor is as follows.
-            Gradients- magnitude and direction of the image are calculated. The image is
-            divided into windows of size 64 x 64. [The choice of this window size is described
-            in the experiments and results section below]. For each window, histogram of gradient
-            directions is calculated. The histogram is divided into 9 bins(0,20,40..160). A gradient
-            arrow and 180 degrees opposite to it are considered the same as unsigned gradients
-            work better than signed gradients. Each pixel contributes the weight(gradient magnitude)
-            proportionally to the bins it's angle is falling between.
-            To make the descriptor invariant to changes in illumination and shadowing, the 64 x 64 window is
-            normalized by considering a block of size 128 x 128 which has 4 64 x 64 windows and
-            these 4 histograms (1 of each window) of size 9 x 1 are concatenated to a histogram of size 36 x 1.
-            And, this 128 x 128 block is slided along horizontally by 64 pixels and veritcally by 64 pixels
-            making it to a total of 3 x 3 positions as the images of shoe dataset are of size 256 x 256. This
-            implies that the feature vector is of size 3*3*36 = 324. A 256 x 256 = 65,536 image is
-            now represented with a feature vector of size 324.
+            The implementation of descriptor is as follows. 
+            Gradients- magnitude and direction of the image are calculated. The image is 
+            divided into windows of size 64 x 64. [The choice of this window size is described 
+            in the experiments and results section below]. For each window, histogram of gradient 
+            directions is calculated. The histogram is divided into 9 bins. Each pixel contributes the 
+            weight(gradient magnitude) proportionally to the bins it's angle is falling between.
+            To make the descriptor invariant to changes in illumination, the 64 x 64 window is 
+            normalized by considering a block of size 128 x 128 which has 4 64 x 64 windows and 
+            these 4 histograms (1 of each window) of size 9 x 1 are concatenated to a histogram of size 36 x 1. 
+            And, this 128 x 128 block is slided along horizontally by 64 pixels and veritcally by 64 pixels 
+            making it to a total of 3 x 3 positions as the images of shoe dataset are of size 256 x 256. This 
+            implies that the feature vector is of size 3*3*36 = 324. A 256 x 256 = 65,536 image is 
+            now represented with a feature vector of size 324.          
             <br>
             Calculating histogram over a patch not only makes the representation
             compact, but also makes it robust to noise in gradients. Operating on
@@ -180,7 +178,7 @@
             The top 'k' similar images from the above step are retrieved as
             output.
         </ul>
-        <br>
+        
 
         <h3 style="color: #3366CC">Experiments and Results</h3>
 

@@ -37,7 +37,6 @@ def retrieve(queries, image_features, k, distance_metric, display=False):
 
     for query in queries:
         sketch_features = extract_features(query)
-        print(sketch_features.shape)
         if distance_metric is not None:
             distances = compute_distances(image_features, sketch_features,
                                       distance_metric)

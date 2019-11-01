@@ -25,7 +25,7 @@ cv2.destroyAllWindows()
 # get results
 feature_bank = pickle.load(open(cfg['feature_bank'], "rb"))
 k = 10
-results = retrieve([query_image], feature_bank, k, None)[0] #'cityblock'
+results = retrieve([query_image], feature_bank, k, 'cityblock')[0] #'cityblock'
 res_files = get_result_filenames(results, cfg)
 _, _, res_images = load_images_from_files(res_files)
 

@@ -33,7 +33,7 @@ for category in sketch_categories:
 
 for k in klist:
     print("Performance metrics at k = ", k)
-    results = retrieve(sketches, feature_bank, k, None) #'cityblock'
+    results = retrieve(sketches, feature_bank, k, 'euclidean') #'cityblock'
 
     ppq = []  # precision per query
     rpq = []

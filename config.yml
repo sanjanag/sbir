@@ -1,6 +1,6 @@
-image_dir: /Users/sanjana/gatech/cv/project/data/shoedataset/images
-sketch_dir: /Users/sanjana/gatech/cv/project/data/shoedataset/sketches
-feature_bank: /Users/sanjana/gatech/cv/project/data/shoedataset/feature_bank.pkl
-categories: /Users/sanjana/gatech/cv/project/data/shoedataset/categories.pkl
-filenames: /Users/sanjana/gatech/cv/project/data/shoedataset/filenames.pkl
-querypath: /Users/sanjana/gatech/cv/project/data/shoedataset/sketches/chairs/1.png
+image_dir: C:\Users\ramya\OneDrive\Documents\OMSCS\Fall19\CV\Project\sbir\data\shoedataset\images
+sketch_dir: C:\Users\ramya\OneDrive\Documents\OMSCS\Fall19\CV\Project\sbir\data\shoedataset\sketches
+feature_bank:  C:\Users\ramya\OneDrive\Documents\OMSCS\Fall19\CV\Project\sbir\test\feature_bank.pkl
+categories: C:\Users\ramya\OneDrive\Documents\OMSCS\Fall19\CV\Project\sbir\test\categories.pkl
+filenames: C:\Users\ramya\OneDrive\Documents\OMSCS\Fall19\CV\Project\sbir\test\filenames.pkl
+querypath: C:\Users\ramya\OneDrive\Documents\OMSCS\Fall19\CV\Project\sbir\data\shoedataset\sketches\shoes\187.png

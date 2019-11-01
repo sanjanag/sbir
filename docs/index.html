@@ -124,11 +124,7 @@
         <ol>
             <b> <li>  HOG - Histogram of Oriented Gradients  </li> </b>
             HOG encodes the distribution of directions
-            of gradients (oriented gradients) as features. These features
-            capture the local shape within an image which is a crucial
-            information for SBIR as the query images are essentially texture less
-            sketches that describe the shape of objects.
-            <br>
+            of gradients (oriented gradients) as features.
             The implementation of descriptor is as follows. 
             Gradients- magnitude and direction of the image are calculated. The image is 
             divided into windows of size 64 x 64. [The choice of this window size is described 
@@ -259,9 +255,14 @@
             <b> Analysis: </b>
             The above results are calculated for k values of 5,10,20,30,90,100,110,170,180,190 and 195. 
             For k = 10, the average precision of HOG is 0.928, SIFT is 0.541 and Hu Moments is 0.6. 
-            For the category of shoes, avergare precision at k=10 for HOG is 
-            Overall, HOG performs better in terms of both precision and recall for both category of images.
-        
+            For the category of chairs, average precision at k=10 for HOG is 0.914, SIFT is 0.858 and 
+            Hu Moments is 0.63. For the category of shoes, average precision at k=10 for HOG is 0.942, 
+            SIFT is 0.225 and Hu Moments is 0.572. For k = 190, the average recall of HOG is 0.605, SIFT 
+            is 0.49 and Hu Moments is 0.484. Overall, HOG performs better in terms of both precision and
+            recall for both the image categories as it captures the local shape within an image which is 
+            a crucial information for SBIR as the query images are essentially texture less sketches 
+            that describe the shape of objects. Due to the absence of significant keypoints in 
+            the shoe sketches, performance of SIFT is poor for that category.
         <br>
 
 

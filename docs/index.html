@@ -50,14 +50,14 @@
 
 
         Sketch based image retrieval systems have many applications in daily life like
-        Medical diagnosis, digital library, search engines, crime prevention,
-        photo sharing sites, geographical information, and sensing remote
-        systems. The traditional text-based image retrieval systems are limited
+        digital library, search engines, crime prevention,
+        photo sharing sites, and sensing remote systems. 
+        The traditional text-based image retrieval systems are limited
         as with growing database of images it is difficult and unrealistic to
         annotate all the images for text-based search.
         <br>
-        In order to tackle this problem, we build a pipeline combining preprocessing the images (gray scaling edge extraction) and extracting various feature descriptors (SIFT, HOG, and Hu Moments)
-        from the images. Then, we take the extracted features from a input sketch and fetch the most similar k images from the database based on distance metrics corresponding to each type of feature descriptors.
+        In order to tackle this problem, we build a pipeline combining preprocessing the images (gray scaling and edge extraction) and extracting various feature descriptors (SIFT, HOG, and Hu Moments)
+        from the images. Then, we take the extracted features from an input sketch and fetch the most similar k images from the database based on distance metrics corresponding to each type of feature descriptors.
         <br>
         Based on the test dataset which contains images from two different categories split in 50/50 way,
         we were able to achieve above baseline (50%) accuracy from all three descriptors that we implemented. Our next step will be to try to tweak the parameters of these feature
@@ -79,9 +79,9 @@
         <h3 style="color: #3366CC">Introduction</h3>
 
         The traditional text-based image retrieval systems are limited as with growing database of images it is difficult and unrealistic to annotate all the images for text-based search. Using sketch to retrieve images also alleviates the need for generating accurate captions for existing images, which becomes a complex natural language processing problem as the description is required to be more specific and detailed. Sketches have a much greater potential to describe the content and exact details of the image than plain text and are a more direct way of expressing human thoughts than text abstraction.<br>
-        Sketch based image retrieval systems have many applications in daily life like Medical diagnosis, digital library, search engines, crime prevention, photo sharing sites, geographical information, and sensing remote systems. With the increasing use of touch screen devices, Sketch-Based Image Retrieval (SBIR) has relevant applications in e-commerce platforms also. <br>
-        Currently we are with regular RBG photographs, but the skeches are only black and white.
-        We are not designing any new way to solve this problem, but building from scratch using knowledge we obtained from class lectures and reseaches.<br>
+        Sketch based image retrieval systems have many applications in daily life like medical diagnosis, digital library, search engines, crime prevention, photo sharing sites, geographical information, and sensing remote systems. With the increasing use of touch screen devices, Sketch-Based Image Retrieval (SBIR) has relevant applications in e-commerce platforms also. <br>
+        Currently we are working  with regular RBG photographs, but the skeches are only black and white.
+        We are not designing any new way to solve this problem, but building from scratch using knowledge we obtained from class lectures and researches.<br>
 
 
         <!-- Approach -->
@@ -149,7 +149,8 @@
             <b> <li> Hu Moments </li> </b>
             Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation.
             We consider this a global shape feature descriptor.
-            <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation.
+            <br> Hu Moments is based on the idea of image moments which is a certain particular weighted average (moment) of the image pixels' intensities, or a function of such moments, usually chosen to have some attractive property or interpretation. We chose Hu Moments because it is fit for describing the countour of objects. To use it, we first find the contour of the sketch/image and then binarize the image based on this contour. Simple properties of the image which are found via image moments include area (or total intensity), its centroid, and information about its orientation. Length of the descripter vector for Hu Moments is 7.
+
 
         </ol>
         We used OpenCV's implementation of above descriptors.
@@ -290,9 +291,44 @@
         <br>
 
         <h3 style="color: #3366CC">Qualitative results</h3>
-        Success Cases
+        <h4>Success Cases:</h4>
+        <ul>
+            <li>HOG <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;
+                <img style="height: 120px;" alt="" src="shoe176.png">
+                <img style="height: 300px;" alt="" src="hog_shoe176.png">
+            </li>
+            <li>SIFT <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;
+                <img style="height: 120px;" alt="" src="chair16.png">
+                <img style="height: 300px;" alt="" src="sift_chair16.png">
+            </li>
+            <li>Hu Moments <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;
+                <img style="height: 120px;" alt="" src="chair97.png">
+                <img style="height: 300px;" alt="" src="hu_chair97.png">
+            </li>
+        </ul>
         <br>
-        Failures
+        <h4>Failure Cases:</h4>
+        <ul>
+            <li>HOG <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;
+                <img style="height: 120px;" alt="" src="chair97.png">
+                <img style="height: 300px;" alt="" src="hog_chair97.png">
+            </li>
+            <li>SIFT <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;
+                <img style="height: 120px;" alt="" src="shoe176.png">
+                <img style="height: 300px;" alt="" src="sift_shoe176.png">
+            </li>
+            <li>Hu Moments <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;
+                <img style="height: 120px;" alt="" src="shoe187.png">
+                <img style="height: 300px;" alt="" src="hu_shoe187.png">
+            </li>
+        </ul>
+        <br>
 
 
 

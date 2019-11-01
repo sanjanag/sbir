@@ -143,9 +143,19 @@
             compact, but also makes it robust to noise in gradients. Operating on
             local windows makes the descriptor invariant to geometric and
             photometric transformations.
+            <br>
+            One challenge we faced with HOG is the selection of window size which is discussed in the 
+            parameter selection section below.  
 
             <b> <li> SIFT  </li> </b>
-            The scale-invariant feature transform (SIFT) is used to detect local features in images. It transforms an image into a large collection of feature vectors, each of which is invariant to image translation, scaling, and rotation, partially invariant to illumination changes and robust to local geometric distortion. These features share similar properties with neurons in primary visual cortex that are encoding basic forms, color and movement for object detection in primate vision. Key locations are defined as maxima and minima of the result of difference of Gaussians function applied in scale space to a series of smoothed and resampled images. Low-contrast candidate points and edge response points along an edge are discarded. Dominant orientations are assigned to localized keypoints. These steps ensure that the keypoints are more stable for matching and recognition. SIFT descriptors robust to local affine distortion are then obtained by considering pixels around a radius of the key location, blurring and resampling of local image orientation planes.
+            The scale-invariant feature transform (SIFT) is used to detect local features in images. It transforms an image into a large collection of feature vectors, each of which is invariant to image translation, scaling, and rotation, partially invariant to illumination changes and robust to local geometric distortion. These features share similar properties with neurons in primary visual cortex that are encoding basic forms, color and movement for object detection in primate vision. 
+            Key locations are defined as maxima and minima of the result of difference of Gaussians function applied in scale space to a series of smoothed and resampled images. 
+            Low-contrast candidate points and edge response points along an edge are discarded. 
+            Dominant orientations are assigned to localized keypoints. 
+            These steps ensure that the keypoints are more stable for matching and recognition. 
+            SIFT descriptors robust to local affine distortion are then obtained by considering pixels around a radius of the key location, blurring and resampling of local image orientation planes. 
+            The feature descriptor is of size m x 128 where m is the no of keypoints identified. Each 1 x 128 vector is a 
+            feature vector representation of the window around that keypoint. 
             <b> <li> Hu Moments </li> </b>
             Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation.
             We consider this a global shape feature descriptor.
@@ -340,6 +350,7 @@
                 <img style="height: 300px;" alt="" src="hu_shoe187.png">
             </li>
         </ul>
+        
         <br>
 
 

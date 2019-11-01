@@ -45,7 +45,7 @@
 
         <h4> <a href="proposal.html"> Proposal </a></h4>
         <!-- Introduction -->
-        <h3>Abstract</h3>
+        <h3 style="color: #3366CC">Abstract</h3>
 
 
 
@@ -66,7 +66,7 @@
 
 
 
-        <h3>Teaser Figure</h3>
+        <h3 style="color: #3366CC">Teaser Figure</h3>
         Sample output from our application:<br>
 
         &emsp;&emsp;&emsp;&emsp;&emsp;
@@ -75,8 +75,8 @@
 
 
         <br><br>
-
-        <h3>Introduction</h3>
+ 
+        <h3 style="color: #3366CC">Introduction</h3>
 
         The traditional text-based image retrieval systems are limited as with growing database of images it is difficult and unrealistic to annotate all the images for text-based search. Using sketch to retrieve images also alleviates the need for generating accurate captions for existing images, which becomes a complex natural language processing problem as the description is required to be more specific and detailed. Sketches have a much greater potential to describe the content and exact details of the image than plain text and are a more direct way of expressing human thoughts than text abstraction.<br>
         Sketch based image retrieval systems have many applications in daily life like Medical diagnosis, digital library, search engines, crime prevention, photo sharing sites, geographical information, and sensing remote systems. With the increasing use of touch screen devices, Sketch-Based Image Retrieval (SBIR) has relevant applications in e-commerce platforms also. <br>
@@ -85,7 +85,7 @@
 
 
         <!-- Approach -->
-        <h3>Approach</h3>
+        <h3 style="color: #3366CC">Approach</h3>
         In our approach, we aim to tackle the following aspects of sketch-image
         differences:
         <ul>
@@ -169,7 +169,7 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
         </ul>
         <br>
 
-        <h3>Experiments and Results</h3>
+        <h3 style="color: #3366CC">Experiments and Results</h3>
 
         <h4>Experimental Setup</h4>
             <li><b>Dataset Used: </b><b>The Shoe Dataset</b><br>
@@ -178,13 +178,11 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
                 <br>
                 We first start with the two category dataset <b>Shoe</b> for
                     our problem, to test our features.</li>
-            <li><b>Input</b><br>
-                200 images of shoes and 200 images of chairs.
-
-            <li><b>Output</b><br>
-                200 sketches of shoes and 200 sketches of chairs as query sketches.
-            </li>
-        <br>
+            <li><b>Input for preprocessing</b> - 
+                200 images of shoes and 200 images of chairs.</li>
+            <li><b>Query</b> - 200 sketches of shoes and 200 sketches of chairs as query sketches.</li>
+            <li><b>Output</b> - Top k similar images for each query sketch.</li>
+        
         <h4>Evaluation metrics</h4>
                 We will be evaluating the performance of our system (different descriptors and different parameters) using the
                 below metrics.
@@ -259,11 +257,11 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
         <br>
 
         <br>
-        <h3>Qualitative results</h3>
+        <h3 style="color: #3366CC">Qualitative results</h3>
 
 
 
-        <h3>Conclusion and future work</h3>
+        <h3 style="color: #3366CC">Conclusion and future work</h3>
         We will be evaluating the performance of our current implementation of framework
         and feature extractors (HOG, SIFT and Hu Moments)
         with <a href="http://sketchy.eye.gatech.edu/explore/banana.html"> The Sketchy Database </a>
@@ -282,7 +280,7 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
 
         <br><br>
 
-        <h3>References/Citations</h3>
+        <h3 style="color: #3366CC">References/Citations</h3>
         [1] Li, Y. & Li, W. Machine Vision and Applications (2018) 29:
         1083.
         https://doi.org/10.1007/s00138-018-0953-8

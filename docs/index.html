@@ -232,20 +232,20 @@
 
         <br>
 
-        <h4>Comparing the three desriptors by average precision-recall plots</h4>
+        <h4>Comparing the three descriptors by average precision-recall plots</h4>
             Here, by average we mean that we calculate the precision and recall values for
             each and all of the input sketches and then calculate the average performance.
             We provide the graphs both for over all and for each sketch input category.
             <ul>
-                    <li><b>SIFT </b><br>
-                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve.png">
-                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_chairs.png">
-                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_shoes.png">
-                    </li>
                     <li><b>HOG</b><br>
                         <img style="width: 33%;" alt="" src="hog64_precision_recall.png">
                         <img style="width: 33%;" alt="" src="hog64_precision_recall_chairs.png">
                         <img style="width: 33%;" alt="" src="hog64_precision_recall_shoes.png">
+                    </li>
+                    <li><b>SIFT </b><br>
+                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve.png">
+                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_chairs.png">
+                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_shoes.png">
                     </li>
                     <li><b>Hu Moments</b><br>
                         <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hu2.png">
@@ -253,7 +253,11 @@
                         <img style="width: 33%;" alt="" src="precision_recall_plot_shoes_hu2.png">
                     </li>
             </ul>
-            Analysis:
+            <b> Analysis: </b>
+            The above results are calculated for k values of 5,10,20,30,90,100,110,170,180,190 and 195. 
+            Overall, HOG performs better in terms of both precision and recall for both category of images.
+            For k = 10, the average precision of HOG is 0.928, SIFT is 0.541 and Hu Moments is 0.6. 
+            For the category of shoes, avergare precision at k=10 for HOG is 
         <br>
 
 

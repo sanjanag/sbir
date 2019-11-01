@@ -56,15 +56,10 @@
         as with growing database of images it is difficult and unrealistic to
         annotate all the images for text-based search.
         <br>
-        In order to tackle this problem, we build a pipeline combining preprocessing 
-        the images (gray scaling edge extraction) and extracting various feature descriptors
-        (SIFT, HOG, and Hu Moments)
+        In order to tackle this problem, we build a pipeline combining preprocessing the images (gray scaling edge extraction) and extracting various feature descriptors (SIFT, HOG, and Hu Moments)
         from the images. Then, we take the extracted features from a input sketch and fetch the most similar k images from the database based on distance metrics corresponding to each type of feature descriptors.
         <br>
-        Based on the test dataset which contains 50-50 images from two different categiries, 
-        we were able to achieve above baseline accuracy (50%) from all three descriptors what we implemented. Our next step will be to try to tweak the parameters of these feature
-        extractors and to try out strategies to combine the features in order to improve the 
-        overall performance.
+        Based on the test dataset which contains 50-50 images from two different categories, we were able to achieve above baseline accuracy (50%) from all three descriptors what we implemented. Our next step will be to try to tweak the parameters of these feature extractors and to try out strategies to combine the features in order to improve the overall performance.
 
 
 
@@ -125,7 +120,7 @@
         <ol>
             <b> <li>  HOG - Histogram of Oriented Gradients  </li> </b>
             
-            <b> <li> SIFT  </li> </b>
+            <b> <li> SIFT  </li> </b> The scale-invariant feature transform (SIFT), is a local feature descriptor. By searching for blobs at multiple scales and positions, the SIFT detector is invariant (or, more accurately, covariant) to translation, rotations, and re scaling of the image. We use Euclidean distance measure to compute similarity between sketches and images in database.
             <b> <li> Hu Moments </li> </b>
             Hu Moments generates descriptors based on the outer contours of an shape. It is invariant to translation, size and rotation. 
             We consider this a global shape feature descriptor.

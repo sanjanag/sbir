@@ -61,8 +61,8 @@
         (SIFT, HOG, and Hu Moments)
         from the images. Then, we take the extracted features from a input sketch and fetch the most similar k images from the database based on distance metrics corresponding to each type of feature descriptors.
         <br>
-        Based on the test dataset which contains 50-50 images from two different categiries, 
-        we were able to achieve above baseline accuracy (50%) from all three descriptors what we implemented. Our next step will be to try to tweak the parameters of these feature
+        Based on the test dataset which contains images from two different categories split in 50/50 way, 
+        we were able to achieve above baseline (50%) accuracy from all three descriptors that we implemented. Our next step will be to try to tweak the parameters of these feature
         extractors and to try out strategies to combine the features in order to improve the 
         overall performance.
 
@@ -70,9 +70,9 @@
 
         <h3>Teaser Figure</h3>
         Sample output from our application:<br>
-        Input:<br><br>
-        &emsp;&emsp;&emsp;&emsp;&emsp;<img style="height: 120px;" alt="" src="chair16.png"> <br><br>
-        Output:<br>
+        
+        &emsp;&emsp;&emsp;&emsp;&emsp;
+        <img style="height: 120px;" alt="" src="chair16.png">
         <img style="height: 300px;" alt="" src="hog_chair16.png">
 
 
@@ -220,9 +220,42 @@
         <h4>Baseline</h4>
             Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.           
             
-        
-        </ol>
+        <br>
+
+        <h4>Comparing the three desriptors by average precision-recall plots</h4>
+            Here, by average we mean that we calculate the precision and recall values for 
+            each and all of the input sketches and then calculate the average performance.
+            We provide the graphs both for over all and for each sketch input category.
+            <ul>
+                    <li>SIFT <br>
+                        <img style="height: 250px;" alt="" src="sift_precision_recall_curve.png">
+                        <img style="height: 250px;" alt="" src="sift_precision_recall_curve_chairs.png">
+                        <img style="height: 250px;" alt="" src="sift_precision_recall_curve_shoes.png">
+                    </li>
+                    <li>HOG <br>
+                        <img style="height: 250px;" alt="" src="hog64_precision_recall.png">
+                        <img style="height: 250px;" alt="" src="hog64_precision_recall_chairs.png">
+                        <img style="height: 250px;" alt="" src="hog64_precision_recall_shoes.png">
+                    </li>
+                    <li>Hu Moments <br>
+                        <img style="height: 260px;" alt="" src="precision_recall_plot_overall_hu2.png">
+                        <img style="height: 260px;" alt="" src="precision_recall_plot_chairs_hu2.png">
+                        <img style="height: 260px;" alt="" src="precision_recall_plot_shoes_hu2.png">
+                    </li>
+            </ul>    
+            Analysis:
+        <br>
+
+
+        <h4>Selecting Parameters</h4>
+            Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.           
+            
+        <br>
+
+        <br>
         <h3>Qualitative results</h3>
+
+
 
         <h3>Conclusion and future work</h3>
         <h5>Uncertainty about potential outcomes</h5>

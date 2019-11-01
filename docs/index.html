@@ -51,7 +51,7 @@
 
         Sketch based image retrieval systems have many applications in daily life like
         digital library, search engines, crime prevention,
-        photo sharing sites, and sensing remote systems. 
+        photo sharing sites, and sensing remote systems.
         The traditional text-based image retrieval systems are limited
         as with growing database of images it is difficult and unrealistic to
         annotate all the images for text-based search.
@@ -125,19 +125,19 @@
             <b> <li>  HOG - Histogram of Oriented Gradients  </li> </b>
             HOG encodes the distribution of directions
             of gradients (oriented gradients) as features.
-            The implementation of descriptor is as follows. 
-            Gradients- magnitude and direction of the image are calculated. The image is 
-            divided into windows of size 64 x 64. [The choice of this window size is described 
-            in the experiments and results section below]. For each window, histogram of gradient 
-            directions is calculated. The histogram is divided into 9 bins. Each pixel contributes the 
+            The implementation of descriptor is as follows.
+            Gradients- magnitude and direction of the image are calculated. The image is
+            divided into windows of size 64 x 64. [The choice of this window size is described
+            in the experiments and results section below]. For each window, histogram of gradient
+            directions is calculated. The histogram is divided into 9 bins. Each pixel contributes the
             weight(gradient magnitude) proportionally to the bins it's angle is falling between.
-            To make the descriptor invariant to changes in illumination, the 64 x 64 window is 
-            normalized by considering a block of size 128 x 128 which has 4 64 x 64 windows and 
-            these 4 histograms (1 of each window) of size 9 x 1 are concatenated to a histogram of size 36 x 1. 
-            And, this 128 x 128 block is slided along horizontally by 64 pixels and veritcally by 64 pixels 
-            making it to a total of 3 x 3 positions as the images of shoe dataset are of size 256 x 256. This 
-            implies that the feature vector is of size 3*3*36 = 324. A 256 x 256 = 65,536 image is 
-            now represented with a feature vector of size 324.          
+            To make the descriptor invariant to changes in illumination, the 64 x 64 window is
+            normalized by considering a block of size 128 x 128 which has 4 64 x 64 windows and
+            these 4 histograms (1 of each window) of size 9 x 1 are concatenated to a histogram of size 36 x 1.
+            And, this 128 x 128 block is slided along horizontally by 64 pixels and veritcally by 64 pixels
+            making it to a total of 3 x 3 positions as the images of shoe dataset are of size 256 x 256. This
+            implies that the feature vector is of size 3*3*36 = 324. A 256 x 256 = 65,536 image is
+            now represented with a feature vector of size 324.
             <br>
             Calculating histogram over a patch not only makes the representation
             compact, but also makes it robust to noise in gradients. Operating on
@@ -175,7 +175,7 @@
             The top 'k' similar images from the above step are retrieved as
             output.
         </ul>
-        
+
 
         <h3 style="color: #3366CC">Experiments and Results</h3>
 
@@ -237,54 +237,54 @@
             <ul>
                     <li><b>HOG</b><br>
                     Window size: 64 x 64 <br>
-                        <img style="width: 33%;" alt="" src="hog64_precision_recall.png">
-                        <img style="width: 33%;" alt="" src="hog64_precision_recall_chairs.png">
-                        <img style="width: 33%;" alt="" src="hog64_precision_recall_shoes.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog_chairs.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog_shoes.png">
                     </li>
                     <li><b>SIFT </b><br>
-                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve.png">
-                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_chairs.png">
-                        <img style="width: 33%;" alt="" src="sift_precision_recall_curve_shoes.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_sift.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_sift_chairs.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_sift_shoes.png">
                     </li>
                     <li><b>Hu Moments</b><br>
-                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hu2.png">
-                        <img style="width: 33%;" alt="" src="precision_recall_plot_chairs_hu2.png">
-                        <img style="width: 33%;" alt="" src="precision_recall_plot_shoes_hu2.png">
+                        <img style="width: 33%;" alt="" src=" precision_recall_plot_overall_hu.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hu_chairs.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hu_shoes.png">
                     </li>
             </ul>
-            <b> Analysis: </b>
-            The above results are calculated for k values of 5,10,20,30,90,100,110,170,180,190 and 195. 
-            For k = 10, the average precision of HOG is 0.928, SIFT is 0.541 and Hu Moments is 0.6. 
-            For the category of chairs, average precision at k=10 for HOG is 0.914, SIFT is 0.858 and 
-            Hu Moments is 0.63. For the category of shoes, average precision at k=10 for HOG is 0.942, 
-            SIFT is 0.225 and Hu Moments is 0.572. For k = 190, the average recall of HOG is 0.605, SIFT 
+            <h4> Analysis </h4>
+            The above results are calculated for k values of 5,10,20,30,90,100,110,170,180,190 and 195.
+            For k = 10, the average precision of HOG is 0.928, SIFT is 0.541 and Hu Moments is 0.6.
+            For the category of chairs, average precision at k=10 for HOG is 0.914, SIFT is 0.858 and
+            Hu Moments is 0.63. For the category of shoes, average precision at k=10 for HOG is 0.942,
+            SIFT is 0.225 and Hu Moments is 0.572. For k = 190, the average recall of HOG is 0.605, SIFT
             is 0.49 and Hu Moments is 0.484. Overall, HOG performs better in terms of both precision and
-            recall for both the image categories as it captures the local shape within an image which is 
-            a crucial information for SBIR as the query images are essentially texture less sketches 
-            that describe the shape of objects. Due to the absence of significant keypoints in 
-            the shoe sketches, performance of SIFT is poor for that category. Hu Moments is more primitive 
-            and is not biased towards any of categories as it captures global shape information. Compared to 
-            the other two descriptors, Hu Moments performs better in terms of memory and retrieval time 
+            recall for both the image categories as it captures the local shape within an image which is
+            a crucial information for SBIR as the query images are essentially texture less sketches
+            that describe the shape of objects. Due to the absence of significant keypoints in
+            the shoe sketches, performance of SIFT is poor for that category. Hu Moments is more primitive
+            and is not biased towards any of categories as it captures global shape information. Compared to
+            the other two descriptors, Hu Moments performs better in terms of memory and retrieval time
             because of the very short feature vector of length 7.
         <br>
 
-        <h4>Selecting Parameters</h4>
+        <h4>Parameter Selection for HoG</h4>
             Here, we show the precision and recall values for different window sizes for HOG.
             <ul>
                     <li> <b> Window size = 16 x 16 </b> <br>
-                        <img style="width: 33%;" alt="" src="hog16_precision_recall_curve.png">
-                        <img style="width: 33%;" alt="" src="hog16_precision_recall_curve_chairs.png">
-                        <img style="width: 33%;" alt="" src="hog16_precision_recall_curve_shoes.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog16.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog16_chairs.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog16_shoes.png">
                     </li>
                     <li> <b> Window size = 32 x 32 </b> <br>
-                        <img style="width: 33%;" alt="" src="hog32_precision_recall_curve.png">
-                        <img style="width: 33%;" alt="" src="hog32_precision_recall_curve_chairs.png">
-                        <img style="width: 33%;" alt="" src="hog32_precision_recall_curve_shoes.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog32.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog32_chairs.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog32_shoes.png">
                     </li>
                     <li> <b>Window size = 128 x 128</b> <br>
-                        <img style="width: 33%;" alt="" src="hog128_precision_recall.png">
-                        <img style="width: 33%;" alt="" src="hog128_precision_recall_chairs.png">
-                        <img style="width: 33%;" alt="" src="hog128_precision_recall_shoes.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog128.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog128_chairs.png">
+                        <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog128_shoes.png">
                     </li>
             </ul>
             The window size is an important design choice to be made in the HOG descriptor.

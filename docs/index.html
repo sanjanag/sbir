@@ -154,17 +154,15 @@ to make it invariant to scale and lightning conditions, the 16*16 block is norma
             Similar to the feature extraction step of the pre-processing phase,
             we extract features from the input sketch image and form a feature vector.
             <li><b>Similarity comparison</b></li>
-            <ol>
-                <b> <li> L2 Norm </li> </b>
-                L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.
-                <b> <li> L1 Norm </li> </b>
-                L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG.
-                <br> <br>
+            <ul>
+                <li><b> L2 Norm</b>  - L2 Norm/Euclidean distance metric is used to compare the features extracted using SIFT and Hu Moments.</li> 
+                <li><b>  L1 Norm</b> - L1 Norm/Manhattan/Cityblock distance metric is used to compare the features extracted using HOG. </li>  
+
+            </ul>
+
                 We chose the distance metrics as per [5] which says that Manhattan distance (L1 norm) may be
                 preferable to Euclidean distance (L2 norm) for the case of high dimensional data. As described in
                 the approach section above, HOG features' dimensions are significantly higher than that of SIFT and Hu Moments.
-
-            </ol>
          <br>
             The top 'k' similar images from the above step are retrieved as
             output.

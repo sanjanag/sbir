@@ -287,7 +287,17 @@
                         <img style="width: 33%;" alt="" src="hog128_precision_recall_shoes.png">
                     </li>
             </ul>
-
+            The window size is an important design choice to be made in the HOG descriptor.
+            The default size is 8 x 8. The average precision at k=10 for 
+            chairs at window size 16 x 16 is 0.407, window size 32 x 32 is 0.765, 
+            64 x 64 is 0.914, 128 x 128 is 0.853. The average precision at k=10 for 
+            shoes at window size 16 x 16 is 0.991, window size 32 x 32 is 0.985, 
+            64 x 64 is 0.942, 128 x 128 is 0.872. As the window size increases, the performance 
+            of chairs increases in terms of precision whereas the performance of shoes decreases.
+            Window of 16 x 16 is too small for a chair image to capture any essential information whereas 
+            its an appropriate size for shoes. Window of 128 x 128 is too big for 256 x 256 image and so it 
+            does not perform well for both categories. We chose the size of 64 x 64
+            which performs better for both categories on an average. 
         <br>
 
         <br>

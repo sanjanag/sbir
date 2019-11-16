@@ -19,7 +19,8 @@ cfg = read_config()
 filenames, sketch_categories, sketches = load_images_from_dir(cfg['sketch_dir'])
 feature_bank = pickle.load(open(cfg['feature_bank'], "rb"))
 
-klist = [5, 10, 15, 40, 50, 60, 85, 90, 95]
+# klist = [5, 10, 15, 40, 50, 60, 85, 90, 95]
+klist = [5, 10]
 avg_precision_values = []
 avg_recall_values = []
 total_category_images = 100
@@ -30,6 +31,10 @@ avg_recall_values_per_category = dict()
 for category in sketch_categories:
     avg_precision_values_per_category[category] = []
     avg_recall_values_per_category[category] = []
+
+best_worst_categories = ['abc', 'xyz'] #best, worst
+max_ppc = -1
+min_ppc = 100
 
 for k in klist:
     print("Performance metrics at k = ", k)
@@ -69,8 +74,15 @@ for k in klist:
         avg_rpc = sum(rpc[category])/total_queries_per_category
         avg_precision_values_per_category[category].append(avg_ppc)
         avg_recall_values_per_category[category].append(avg_rpc)
-        print("Average precision per category-", category, " : ", avg_ppc)
-        print("Average recall per category-", category, " : ", avg_rpc)
+        if k == 10:
+            if avg_ppc > max_ppc:
+                max_ppc = avg_ppc
+                best_worst_categories[0] = category
+            if avg_ppc < min_ppc:
+                min_ppc = avg_ppc
+                best_worst_categories[1] = category
+            print("Average precision per category-", category, " : ", avg_ppc)
+            print("Average recall per category-", category, " : ", avg_rpc)
 
 step_kwargs = ({'step': 'post'}
                if 'step' in signature(plt.fill_between).parameters
@@ -87,7 +99,7 @@ plt.ylabel("Precision")
 plt.ylim((0, 1))
 plt.show()
 
-for category in avg_precision_values_per_category:
+for category in best_worst_categories:
     precision_values = avg_precision_values_per_category[category]
     recall_values = avg_recall_values_per_category[category]
     print(category, "avg precision values", precision_values)

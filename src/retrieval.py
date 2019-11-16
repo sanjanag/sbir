@@ -8,9 +8,8 @@ from preprocess import preprocess_sketches
 from calculate_distances_sift import calculate_distances_sift
 
 
-def compute_distances(image_features, sketch_feature, distance_measure):
-    distances = distance.cdist(np.array(image_features),
-                               sketch_feature.reshape((1, -1)),
+def compute_distances(image_features, sketch_features, distance_measure):
+    distances = distance.cdist(np.array(sketch_features), np.array(image_features),
                                distance_measure)
     return distances
 
@@ -34,16 +33,24 @@ def retrieve(queries, image_features, k, distance_metric, display=False):
     queries = preprocess_sketches(queries)
 
     results = []
+    sketch_features_list = []
 
     for query in queries:
         sketch_features = extract_features(query)
-        if distance_metric is not None:
-            distances = compute_distances(image_features, sketch_features,
+        sketch_features_list.append(sketch_features)
+    
+    if distance_metric is not None:
+        distances = compute_distances(image_features, sketch_features_list,
                                       distance_metric)
-        else:
+        for i in range(len(distances)):
+            query_distances = distances[i]
+            top_results = get_top_results(k, query_distances)
+            results.append(top_results)
+    else:
+        for sketch_features in sketch_features_list:
             distances = calculate_distances_sift(sketch_features, image_features)
-        top_results = get_top_results(k, distances)
-        results.append(top_results)
+            top_results = get_top_results(k, distances)
+            results.append(top_results)
     return results
 
 # if __name__ == '__main__':

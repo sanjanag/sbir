@@ -1,3 +1,4 @@
+import os
 import pickle
 
 from extract_features import extract_features
@@ -17,8 +18,14 @@ print("Preprocessing images")
 processed_imgs = preprocess_images(images)
 
 print("Building feature bank")
-feature_list = []
-for img in processed_imgs:
-    feature_list.append(extract_features(img))
-pickle.dump(feature_list, open(cfg['feature_bank'], 'wb'))
-print("Dumped feature bank in " + cfg['feature_bank'])
+
+features = cfg['features']
+
+for feature in features:
+    print("Extracting feature " + feature)
+    feature_list = []
+    for img in processed_imgs:
+        feature_list.append(extract_features(feature, img))
+    filepath = os.path.join(cfg['feature_bank'], feature + ".pkl")
+    pickle.dump(feature_list, open(filepath, 'wb'))
+    print("Dumped feature " + feature + " in " + filepath)

@@ -3,23 +3,27 @@ import pickle as pkl
 import numpy as np
 from scipy.spatial import distance
 
+from calculate_distances_sift import calculate_distances_sift
 from extract_features import extract_features
 from preprocess import preprocess_sketches
-from calculate_distances_sift import calculate_distances_sift
 
 
-def compute_distances(image_features, sketch_features, distance_measure):
-    distances = distance.cdist(np.array(sketch_features), np.array(image_features),
-                               distance_measure)
-    return distances
+def compute_distances(image_features, sketch_feature, metric='sift_distance'):
+    if metric == 'sift_distance':
+        distances = calculate_distances_sift(sketch_feature, image_features)
+        # print(distances)
+        return distances
+    else:
+        # print(image_features.shape, sketch_feature.shape)
+        distances = distance.cdist(image_features,
+                                   sketch_feature.reshape(1, -1),
+                                   metric)
+        return np.array(distances.ravel())
 
 
 def get_top_results(k, distances):
-    distance_idx_list = []
-    for i, distance in enumerate(distances):
-        distance_idx_list.append((distance, i))
-    distance_idx_list.sort()
-    return distance_idx_list[:k]
+    sorted_indices = np.argsort(distances)
+    return list(sorted_indices[:k])
 
 
 def get_image_features(feature_bank_path):
@@ -29,30 +33,44 @@ def get_image_features(feature_bank_path):
     return image_features
 
 
-def retrieve(queries, image_features, k, distance_metric, display=False):
+def retrieve(queries, feature_name,  image_features, k, \
+                            distance_metric="sift_distance"):
     queries = preprocess_sketches(queries)
 
     results = []
     sketch_features_list = []
 
     for query in queries:
-        sketch_features = extract_features(query)
-        sketch_features_list.append(sketch_features)
-    
-    if distance_metric is not None:
-        distances = compute_distances(image_features, sketch_features_list,
+        sketch_features = extract_features(feature_name, query)
+        distances = compute_distances(image_features, sketch_features,
                                       distance_metric)
-        for i in range(len(distances)):
-            query_distances = distances[i]
-            top_results = get_top_results(k, query_distances)
-            results.append(top_results)
-    else:
-        for sketch_features in sketch_features_list:
-            distances = calculate_distances_sift(sketch_features, image_features)
-            top_results = get_top_results(k, distances)
-            results.append(top_results)
+        top_results = get_top_results(k, distances)
+        # print(top_results)
+        results.append(top_results)
     return results
 
-# if __name__ == '__main__':
-#     cfg = read_config()
-#     categories, sketches = load_images(cfg['sketch_dir'])
+
+def cascaded_retrieval(queries, ord_features, feature_dict, k_list,
+                       metric_dict):
+    queries = preprocess_sketches(queries)
+
+    results = []
+
+    for query in queries:
+        img_indices = np.arange(len(feature_dict[ord_features[0]]))
+        for i, feature in enumerate(ord_features):
+            image_features = np.asarray(feature_dict[feature])
+            image_features = image_features[img_indices]
+            # print(image_features.shape)
+            sketch_features = extract_features(feature, query)
+            distances = compute_distances(image_features,
+                                          sketch_features,
+                                          metric_dict[feature])
+            top_results = get_top_results(k_list[i], distances)
+            img_indices = img_indices[top_results]
+        results.append(img_indices)
+    return results
+
+
+
+

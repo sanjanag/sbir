@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 
 def calculate_distances_sift(query_features, image_features_list):
@@ -16,4 +17,4 @@ def calculate_distances_sift(query_features, image_features_list):
         distance = sum(distance_list)
         distance /= k
         distances.append(distance)
-    return distances
+    return np.array(distances)

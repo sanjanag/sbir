@@ -22,23 +22,23 @@ for feature in features:
                                               ".pkl"), "rb"))
     feature_dict[feature] = img_features
 
-# k_dict = {'hu_moments': 50, 'hog': 10}
+
 
 metric_dict = {'hu_moments': 'euclidean', 'hog': 'cityblock',
                'sift': 'sift_distance'}
 
-results1 = cascaded_retrieval(queries, ['hog', 'hu_moments'],
+results1 = cascaded_retrieval(queries, ['hog', 'sift'],
                               feature_dict,
                               [100, 10], metric_dict)
 
-results2 = retrieve(queries, 'hu_moments', feature_dict['hu_moments'], 10,
-                    metric_dict['hu_moments'])
-
-results3 = retrieve(queries, 'hog', feature_dict['hog'], 10,
-                    metric_dict['hog'])
-
-results4 = retrieve(queries, 'sift', feature_dict['sift'], 10,
-                    metric_dict['sift'])
+# results2 = retrieve(queries, 'hu_moments', feature_dict['hu_moments'], 10,
+#                     metric_dict['hu_moments'])
+#
+# results3 = retrieve(queries, 'hog', feature_dict['hog'], 10,
+#                     metric_dict['hog'])
+#
+# results4 = retrieve(queries, 'sift', feature_dict['sift'], 10,
+#                     metric_dict['sift'])
 
 plt.imshow(queries[0])
 plt.show()
@@ -51,6 +51,6 @@ def display(results, save_file):
 
 
 display(results1, "cascaded.png")
-display(results2, "hu_moments.png")
-display(results3, "hog.png")
-display(results4, "sift.png")
+# display(results2, "hu_moments.png")
+# display(results3, "hog.png")
+# display(results4, "sift.png")

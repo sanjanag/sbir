@@ -17,7 +17,7 @@ def compute_distances(image_features, sketch_features, metric='sift_distance'):
         return np.array(distances)
     else:
         distances = distance.cdist(sketch_features, image_features, metric)
-        print(f"Distances shape: {distances.shape}")
+        # print(f"Distances shape: {distances.shape}")
         return distances
 
 
@@ -69,8 +69,8 @@ def cascaded_retrieval(queries, ord_features, feature_dict, k_list,
                 image_features = np.asarray(feature_dict[feature])
                 image_features = image_features[img_indices]
                 sketch_features = np.array(sketch_features).reshape(1, -1)
-                print(f"Image: {np.array(image_features).shape}")
-                print(f"Sketch: {np.array(sketch_features).shape}")
+                # print(f"Image: {np.array(image_features).shape}")
+                # print(f"Sketch: {np.array(sketch_features).shape}")
             else:
                 image_features = np.asarray(feature_dict[feature])
                 image_features =[image_features[idx] for idx in img_indices]

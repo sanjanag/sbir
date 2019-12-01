@@ -17,6 +17,7 @@ from inspect import signature
 
 cfg = read_config()
 filenames, sketch_categories, sketches = load_images_from_dir(cfg['sketch_dir'])
+print(len(filenames))
 feature_bank = pickle.load(open(cfg['feature_bank'], "rb"))
 
 # klist = [5, 10, 15, 40, 50, 60, 85, 90, 95]

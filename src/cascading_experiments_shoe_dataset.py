@@ -28,10 +28,10 @@ metric_dict = {'hu_moments': 'euclidean', 'hog': 'cityblock',
 
 results = cascaded_retrieval(sketches, ['sift', 'hu_moments', 'sift', 'hu_moments'],
                               feature_dict,
-                              [350, 150, 50, 10], metric_dict)
+                              [350, 150, 50, 20], metric_dict)
 
 # klist = [5 , 10, 20, 30]#, 90, 100, 110, 170, 180, 190, 195]
-klist = [10]
+klist = [20]
 avg_precision_values = []
 avg_recall_values = []
 total_category_images = 200

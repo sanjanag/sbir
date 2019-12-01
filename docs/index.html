@@ -191,13 +191,26 @@
         <h3 style="color: #3366CC">Experiments and Results</h3>
 
         <h4>Experimental Setup</h4>
-            <li><b>Dataset Used: <a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">The Shoe Dataset </a></b><br>
+        <ol>
+            <li><b><a href="https://www.eecs.qmul.ac.uk/~qian/Project_cvpr16.html">The Shoe Dataset </a></b><br>
                 This dataset is organized into two categories of photos and sketches - shoe and chair. Images and sketches are of different scales and orientations. We first start with a subset of this dataset which has 200 images of shoes and chairs each and 200 sketches of shoes and chairs each.
-            <li><b>Input for preprocessing</b> - 200 images of shoes and 200 images of chairs</li>
-            <li><b>Output of preprocessing</b> - 400 feature vectors for each image</li>
-            <li><b>Input for Retrieval phase</b> - 200 sketches of shoes and 200 sketches of chairs as query sketches</li>
-            <li><b>Output of Retrieval phase</b> - Top k similar images for each query sketch</li>
-
+            <ul>
+                    <li><b>Input for preprocessing</b> - 200 images of shoes and 200 images of chairs</li>
+                    <li><b>Output of preprocessing</b> - 400 feature vectors for each image</li>
+                    <li><b>Input for Retrieval phase</b> - 200 sketches of shoes and 200 sketches of chairs as query sketches</li>
+                    <li><b>Output of Retrieval phase</b> - Top k similar images for each query sketch</li>
+                
+            </ul>
+                    <li><b><a href="http://sketchy.eye.gatech.edu/explore/banana.html">The Sketchy Database </a></b><br>
+                This is the first large-scale collection of sketch-photo pairs. The dataset has 125 categories of objects with 100 images per category and 75,471 sketches of 12,500 objects.
+            <ul>
+                    <li><b>Input for preprocessing</b> - 100 images of each of the first 50 categories i.e. a total of 5000 images</li>
+                    <li><b>Output of preprocessing</b> - 500 feature vectors for each image</li>
+                    <li><b>Input for Retrieval phase</b> - All the sketches of each of the first 50 categories. Total no of sketches is 30,454</li>
+                    <li><b>Output of Retrieval phase</b> - Top k similar images for each query sketch</li>
+            </ul>
+        </ol>
+            
         <h4>Evaluation metrics</h4>
                 We will be evaluating the performance of our system (different descriptors and different parameters) using the
                 below metrics.
@@ -235,13 +248,12 @@
                         return the average of R@k score for each query.
                     </li>
                 </ul>
-        <br>
-        <h4>Baseline</h4>
+        <h4>Baseline of the shoe dataset</h4>
             Since we have a 50/50 divide in the candidate images of the two catogories, the baseline of our approach will be 0.5.
 
         <br>
 
-        <h4>Comparing the three descriptors by average precision-recall plots</h4>
+        <h4>Comparing the three descriptors by average precision-recall plots for the shoe dataset</h4>
             Here, by average we mean that we calculate the precision and recall values for
             each and all of the input sketches and then calculate the average performance.
             We provide the graphs both for over all and for each sketch input category.
@@ -263,8 +275,8 @@
                         <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hu_shoes.png">
                     </li>
             </ul>
-            <h4> Analysis </h4>
-            The above results are calculated for k values of 5,10,20,30,90,100,110,170,180,190 and 195.
+        <h4> Analysis of the shoe dataset results</h4>
+        The above results are calculated for k values of 5,10,20,30,90,100,110,170,180,190 and 195.
         <ul>
             <li>For k = 10, the average precision of HOG is 0.928, SIFT is 0.541 and Hu Moments is 0.6.</li>
             <li>For the category of chairs, average precision at k=10 for HOG is 0.914, SIFT is 0.858 and
@@ -296,10 +308,9 @@
 <!--            and is not biased towards any of categories as it captures global shape information. Compared to-->
 <!--            the other two descriptors, Hu Moments performs better in terms of memory and retrieval time-->
 <!--            because of the very short feature vector of length 7.-->
-        <br>
 
         <h4>Parameter Selection for HoG</h4>
-            Here, we show the precision and recall values for different window sizes for HOG.
+            Here, we show the precision and recall values for different window sizes of HOG for the shoe dataset.
             <ul>
                     <li> <b> Window size = 16 x 16 </b> <br>
                         <img style="width: 33%;" alt="" src="precision_recall_plot_overall_hog16.png">
@@ -330,47 +341,175 @@
             which performs better for both categories on an average. This behavior is the expected trend from what we understand about window-based approaches. A small window size would be too local and a big window size might lose sight of the particular local feature to it.
         <br>
 
-        <br>
+    <h4> Cascading weak descriptors</h4>
+    We experimented with cascading SIFT and Hu Moments which are weak descriptors as per the above shoe dataset results. The cascading is as follows. 
+    For each query sketch
+    <ol>
+        <li>
+            Top 300 similar images out of the total 400 images are retrieved based on SIFT. 
+        </li>
+        <li>
+            Top 150 similar images of 300 images are retrieved based on Hu Moments.
+        </li>
+        <li>
+            Top 50 similar images of 150 images are retrieved based on SIFT.
+        </li>
+        <li>
+            Top 10 similar images of 50 images are retrieved based on Hu Moments.
+        </li>
+    </ol>
+    <ul>
+        <li>For k = 10, the average precision of the above cascaded descriptor is 0.6085, SIFT is 0.541 and Hu Moments is 0.6.</li>
+        <li>For k = 10, the average recall of cascaded descriptor is 0.0304, SIFT is  0.027 and Hu Moments is 0.03.</li>
+        <li>For the category of chairs, average precision at k=10 for cascaded descriptor is 0.64, SIFT is 0.858 and
+        Hu Moments is 0.63.</li>
+        <li>For the category of shoes, average precision at k=10 for cascaded descriptor is 0.577,
+        SIFT is 0.225 and Hu Moments is 0.572.</li>
+    </ul>
+    The average precision and recall at 10 are improved for cascaded descriptor comparing to SIFT but comparing to Hu Moments that is a very little improvement.
+    <h4>The sketchy dataset experiments and results</h4>
+    <ul>
+        <li> <b> HOG </b> <br>
+            Below are the precision recall values are calculated at k = 5, 10, 50, 90, 95 for the first 50 categories of the sketchy dataset with total images = 5000 and query sketches = 30,454.
+            The first graph shows the results of the average of all the categories. The second graph shows the best performing category- door and the last graph shows 
+            the worst performing category- crocodilian in terms of average precision.
+            <br>
+            <img style="width: 33%;" alt="" src="precison_recall_curve_hog64_sketchy50.png">
+            <img style="width: 33%;" alt="" src="door_prcurve.png">
+            <img style="width: 33%;" alt="" src="coco_pr_curve.png">
+        </li>
+        <li> <b> SIFT </b> <br>
+            Below are the precision recall values are calculated at k = 5, 10, 50, 90, 95 for the first 10 categories of the sketchy dataset with total images = 1000 and query sketches = 30,454.
+            The first graph shows the results of the average of all the categories. The second graph shows the best performing category- ant and the last graph shows 
+            the worst performing category- bear in terms of average precision. <br>
+            <img style="width: 33%;" alt="" src="prcurve.png">
+            <img style="width: 33%;" alt="" src="prant.png">
+            <img style="width: 33%;" alt="" src="prbear.png">
+        </li>
+        <li> <b>Hu Moments</b> <br>
+            Hu Moments feature can't be extracted directly from the images of the sketchy dataset.
+            This is due to the presence of background along with the object of interest. So, the foreground and background
+            cannot be separated like it is done automatically with thresholding for the shoe dataset. Below are the images of chair category from each of the two datasets- 
+            image from the shoe dataset is on the left and image from the sketchy database is on the right. <br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+            <img style="width: 30%;" alt="" src="34.jpg">
+            <img style="width: 25%;" alt="" src="n03001627_5486.jpg">
+        </li>
+    </ul>
+    -Only a subset of categories are considered due to compute resource limitations.
+    <h4> Analysis of the sketchy dataset results</h4>
+    <ul>
+        <li>For k = 10, the average precision of HOG for 50 categories is 0.0934, SIFT for 10 categories is 0.086.</li>
+        <li>For HOG, the average precision is highest for the category of door among the first 50 categories which is 0.548. 
+        And, the least average precision is 0.0006 for the category of crocodilian.</li>
+        <li>For SIFT, the average precision is highest for the category of ant among the first 10 categories which is 0.678. 
+        And, the least average precision is 0.0 for the category of bear.</li>      
+        <li>For the category of shoes, average precision at k=10 for HOG is 0.942,
+        SIFT is 0.225 and Hu Moments is 0.572.</li>
+        <li>The poor performance of these descriptors with the sketchy database is due to the inability of these traditional descriptors to handle
+            the below variations present in the sketchy dataset:
+        </li>
+        <ol>
+            <li>The images have background along with the object of interest. The object is not gauranteed to be at the center of the image.</li>
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+            <img style="width: 20%;" alt="" src="n02764044_20350.jpg">
+            <img style="width: 20%;" alt="" src="n02691156_58.jpg">
+
+            <li>Scale, orientations, illumination vary.</li>
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+            <img style="width: 20%;" alt="" src="n02691156_573.jpg">
+            <img style="width: 20%;" alt="" src="n02691156_10381.jpg">
+            <img style="width: 20%;" alt="" src="n02694662_17278.jpg">
+            <img style="width: 20%;" alt="" src="n02694662_12133.jpg">
+
+            <!-- n02691156_573 n02691156_10381 n02694662_17278  n02694662_12133 -->
+            <li>There are occlusions.</li>
+             
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+
+            <img style="width: 20%;" alt="" src="n02676566_11377.jpg">
+            <img style="width: 20%;" alt="" src="n03147509_18646.jpg">
+            <img style="width: 20%;" alt="" src="n01698640_7483.jpg">
+            <img style="width: 20%;" alt="" src="n01698640_9397.jpg">
+            <li>Object of interest may be only partially present in the image.</li>
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+
+            <img style="width: 20%;" alt="" src="n02691156_10603.jpg">
+            <li> Object features indistinguishable with the features of background. The first two images are of crocodiles and the last image is of ant.</li>
+            
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+            <img style="width: 20%;" alt="" src="n01698640_8263.jpg">
+            <img style="width: 20%;" alt="" src="n01697457_4631.jpg">
+            <img style="width: 20%;" alt="" src="n02219486_1181.jpg">
+            
+            <li>Partially drawn sketches. Below are partially drawn airplane, crocodilian and apple</li>
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+            <img style="width: 20%;" alt="" src="n02691156_8228-4.png">
+            <img style="width: 20%;" alt="" src="n01698640_7104-4.png">
+            <img style="width: 20%;" alt="" src="n07739125_10025-6.png">
+            <li>Sketches with disconnected boundaries. Below is a bear sketch.</li>
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+            <img style="width: 20%;" alt="" src="n02131653_170-4.png">
+            <li>Poorly drawn sketches. The first sketch is supposed to be of a crocodilian, second one is supposed to be an alarm clock</li>
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+            <img style="width: 20%;" alt="" src="n01698640_10214-1.png">
+            <img style="width: 20%;" alt="" src="n02694662_10127-2.png">
+            <li>Unnecessary details like hand in the below image along with the sketch of banana</li>
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+            <img style="width: 20%;" alt="" src="n07753592_296-2.png">
+        </ol>
+    </ul>
 
         <h3 style="color: #3366CC">Qualitative results</h3>
         <h4>Success Cases:</h4>
         <ul>
-            <li> <b>HOG</b> <br>
+            <li> <b>HOG- Shoe dataset</b> <br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;
                 <img style="height: 120px;" alt="" src="shoe176.png">
                 <img style="height: 300px;" alt="" src="hog_shoe176.png">
             </li>
-            <li> <b>SIFT</b> <br>
+            <li> <b>SIFT- Shoe dataset</b> <br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;
                 <img style="height: 120px;" alt="" src="chair16.png">
                 <img style="height: 300px;" alt="" src="sift_chair16.png">
             </li>
-            <li> <b>Hu Moments</b> <br>
+            <li> <b>Hu Moments- Shoe dataset</b> <br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;
                 <img style="height: 120px;" alt="" src="chair97.png">
                 <img style="height: 300px;" alt="" src="hu_chair97.png">
+            </li>
+            <li> <b>Hog- Sketchy dataset</b> <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;
+                <img style="height: 120px;" alt="" src="n03222176_13242-1.png">
+                <img style="height: 300px;" alt="" src="doorResultsHog.png">
             </li>
         </ul>
         <br>
         <h4>Failure Cases:</h4>
         <ul>
-            <li> <b>HOG</b> <br>
+            <li> <b>HOG- Shoe dataset</b> <br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;
                 <img style="height: 120px;" alt="" src="chair97.png">
                 <img style="height: 300px;" alt="" src="hog_chair97.png">
             </li>
-            <li> <b>SIFT</b> <br>
+            <li> <b>SIFT- Shoe dataset</b> <br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;
                 <img style="height: 120px;" alt="" src="shoe176.png">
                 <img style="height: 300px;" alt="" src="sift_shoe176.png">
             </li>
-            <li> <b>Hu Moments</b> <br>
+            <li> <b>Hu Moments- Shoe dataset</b> <br>
                 &emsp;&emsp;&emsp;&emsp;&emsp;
                 <img style="height: 120px;" alt="" src="shoe187.png">
                 <img style="height: 300px;" alt="" src="hu_shoe187.png">
             </li>
+            <li> <b>Hog- Sketchy dataset</b> <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;
+                <img style="height: 120px;" alt="" src="n01697457_7111-3.png">
+                <img style="height: 300px;" alt="" src="crocresultsHog.png">
+            </li>
         </ul>
-        Potential reasons for the failure in HOG discriptors is that some shoes may have similar distribution of gradient values as the chairs; in SIFT discriptors, it might be that there is not enough interest points in shoe images due to the lack of sharp enges that SIFT is able to identify. For Hu Moments, the lack of degree of freedom and the limited information that it makes use of may be a contributing factor.
+        For the first 3 queries, potential reasons for the failure in HOG descriptors is that some shoes may have similar distribution of gradient values as the chairs; in SIFT discriptors, it might be that there is not enough interest points in shoe images due to the lack of sharp enges that SIFT is able to identify. For Hu Moments, the lack of degree of freedom and the limited information that it makes use of may be a contributing factor.
+        The failure of last query of category -crocodilian is due to the incomplete sketch and due to the failure reasons discussed in the above analysis section. 
         <br>
 
 

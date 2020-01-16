@@ -1,4 +1,5 @@
 *.DS_Store
+*.vscode
 readings/
 data/
 *.idea/
